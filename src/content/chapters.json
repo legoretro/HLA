@@ -1,0 +1,873 @@
+[
+  {
+    "id": "what-is-hla",
+    "number": 1,
+    "presenter": "scientist-1",
+    "title": "What Is HLA?",
+    "shortLabel": "HLA ID",
+    "timelineIcon": "icon-welcome",
+    "background": "bg-pixel-lab",
+    "dialogue": {
+      "speaker": "Scientist 1",
+      "text": "HLA molecules work like cell ID tags. They help immune cells decide what looks like self and what needs a closer look."
+    },
+    "infoPopups": [
+      {
+        "speaker": "scientist-1",
+        "title": "HLA Cell ID",
+        "text": "HLA stands for human leukocyte antigen. HLA is the human version of the MHC system, encoded in a gene-rich region on chromosome 6.",
+        "audio": "/assets/audio/scientist-1/hla-cell-id.mp3",
+        "x": 1010,
+        "y": 245
+      }
+    ],
+    "cards": [
+      {
+        "title": "HLA",
+        "text": "Human MHC: cell-surface molecules that present peptide clues.",
+        "x": 285,
+        "y": 175,
+        "width": 310,
+        "height": 105
+      },
+      {
+        "title": "Chromosome 6",
+        "text": "The HLA genes sit together in the MHC region.",
+        "x": 650,
+        "y": 170,
+        "width": 300,
+        "height": 100
+      },
+      {
+        "title": "Self vs Non-Self",
+        "text": "Immune cells inspect HLA displays before reacting.",
+        "x": 995,
+        "y": 180,
+        "width": 310,
+        "height": 110
+      }
+    ],
+    "props": [
+      {
+        "asset": "chromosome-6",
+        "x": 650,
+        "y": 310,
+        "scale": 0.65,
+        "depth": 3
+      },
+      {
+        "asset": "class-i-cell",
+        "x": 980,
+        "y": 330,
+        "scale": 0.55,
+        "depth": 3
+      }
+    ],
+    "characters": [
+      {
+        "asset": "scientist-1",
+        "sprite": "scientist-1-sheet",
+        "x": 400,
+        "y": 515,
+        "scale": 0.92,
+        "action": "talk",
+        "depth": 8
+      },
+      {
+        "asset": "scientist-2",
+        "sprite": "scientist-2-sheet",
+        "x": 545,
+        "y": 515,
+        "scale": 0.82,
+        "action": "idle",
+        "depth": 7
+      },
+      {
+        "asset": "scientist-3",
+        "sprite": "scientist-3-sheet",
+        "x": 690,
+        "y": 515,
+        "scale": 0.82,
+        "action": "idle",
+        "depth": 7
+      },
+      {
+        "asset": "scientist-4",
+        "sprite": "scientist-4-sheet",
+        "x": 835,
+        "y": 515,
+        "scale": 0.82,
+        "action": "idle",
+        "depth": 7
+      }
+    ]
+  },
+  {
+    "id": "class-i-vs-class-ii",
+    "number": 2,
+    "presenter": "scientist-1",
+    "title": "Class I vs Class II",
+    "shortLabel": "I vs II",
+    "timelineIcon": "icon-class-i",
+    "background": "bg-pixel-lab",
+    "dialogue": {
+      "speaker": "Scientist 1",
+      "text": "Class I and Class II both present peptides, but they do it in different places and talk to different T-cell teams."
+    },
+    "infoPopups": [
+      {
+        "speaker": "scientist-1",
+        "title": "Class I and Class II",
+        "text": "Class I includes HLA-A, HLA-B, and HLA-C on most nucleated cells. Class II includes HLA-DR, HLA-DQ, and HLA-DP on antigen-presenting cells.",
+        "audio": "/assets/audio/scientist-1/class-i-class-ii.mp3",
+        "x": 1015,
+        "y": 235
+      }
+    ],
+    "cards": [
+      {
+        "title": "Class I",
+        "text": "HLA-A, HLA-B, HLA-C\nMost nucleated cells\nPresents inside-cell peptides to CD8 T cells",
+        "x": 360,
+        "y": 178,
+        "width": 385,
+        "height": 130
+      },
+      {
+        "title": "Class II",
+        "text": "HLA-DR, HLA-DQ, HLA-DP\nAntigen-presenting cells\nPresents outside-source peptides to CD4 T cells",
+        "x": 845,
+        "y": 178,
+        "width": 385,
+        "height": 130
+      }
+    ],
+    "props": [
+      {
+        "asset": "class-i-cell",
+        "x": 390,
+        "y": 335,
+        "scale": 0.62,
+        "depth": 3
+      },
+      {
+        "asset": "class-ii-apc",
+        "x": 850,
+        "y": 335,
+        "scale": 0.62,
+        "depth": 3
+      }
+    ],
+    "characters": [
+      {
+        "asset": "scientist-1",
+        "sprite": "scientist-1-sheet",
+        "x": 400,
+        "y": 515,
+        "scale": 0.92,
+        "action": "point",
+        "depth": 8
+      },
+      {
+        "asset": "scientist-2",
+        "sprite": "scientist-2-sheet",
+        "x": 545,
+        "y": 515,
+        "scale": 0.82,
+        "action": "idle",
+        "depth": 7
+      },
+      {
+        "asset": "scientist-3",
+        "sprite": "scientist-3-sheet",
+        "x": 690,
+        "y": 515,
+        "scale": 0.82,
+        "action": "idle",
+        "depth": 7
+      },
+      {
+        "asset": "scientist-4",
+        "sprite": "scientist-4-sheet",
+        "x": 835,
+        "y": 515,
+        "scale": 0.82,
+        "action": "idle",
+        "depth": 7
+      }
+    ]
+  },
+  {
+    "id": "polymorphism-inheritance",
+    "number": 3,
+    "presenter": "scientist-2",
+    "title": "Alleles and Inheritance",
+    "shortLabel": "ALLELES",
+    "timelineIcon": "icon-family",
+    "background": "bg-pixel-lab",
+    "dialogue": {
+      "speaker": "Scientist 2",
+      "text": "HLA is highly polymorphic, which means many allele versions exist. You inherit linked HLA sets from each parent."
+    },
+    "infoPopups": [
+      {
+        "speaker": "scientist-2",
+        "title": "Why so many alleles?",
+        "text": "HLA diversity helps populations present many different peptide clues. In transplant testing, that same diversity makes matching more specific.",
+        "audio": "/assets/audio/scientist-2/polymorphism-inheritance.mp3",
+        "x": 1005,
+        "y": 235
+      }
+    ],
+    "cards": [
+      {
+        "title": "Polymorphism",
+        "text": "Many HLA allele versions exist at the same gene locus.",
+        "x": 310,
+        "y": 180,
+        "width": 345,
+        "height": 105
+      },
+      {
+        "title": "Haplotype",
+        "text": "A linked group of HLA alleles inherited together from one parent.",
+        "x": 725,
+        "y": 180,
+        "width": 345,
+        "height": 105
+      }
+    ],
+    "props": [
+      {
+        "asset": "family-map",
+        "x": 705,
+        "y": 335,
+        "scale": 0.78,
+        "depth": 3
+      },
+      {
+        "asset": "chromosome-6",
+        "x": 330,
+        "y": 325,
+        "scale": 0.62,
+        "depth": 3
+      }
+    ],
+    "characters": [
+      {
+        "asset": "scientist-1",
+        "sprite": "scientist-1-sheet",
+        "x": 400,
+        "y": 515,
+        "scale": 0.82,
+        "action": "idle",
+        "depth": 7
+      },
+      {
+        "asset": "scientist-2",
+        "sprite": "scientist-2-sheet",
+        "x": 545,
+        "y": 515,
+        "scale": 0.92,
+        "action": "talk",
+        "depth": 8
+      },
+      {
+        "asset": "scientist-3",
+        "sprite": "scientist-3-sheet",
+        "x": 690,
+        "y": 515,
+        "scale": 0.82,
+        "action": "idle",
+        "depth": 7
+      },
+      {
+        "asset": "scientist-4",
+        "sprite": "scientist-4-sheet",
+        "x": 835,
+        "y": 515,
+        "scale": 0.82,
+        "action": "idle",
+        "depth": 7
+      }
+    ]
+  },
+  {
+    "id": "six-allele-teaching-model",
+    "number": 4,
+    "presenter": "scientist-2",
+    "title": "Six-Allele Matching Model",
+    "shortLabel": "6 ALLELES",
+    "timelineIcon": "icon-match",
+    "background": "bg-pixel-lab",
+    "dialogue": {
+      "speaker": "Scientist 2",
+      "text": "For this class example, we will only compare two alleles each at HLA-A, HLA-B, and HLA-C. Real matching can use more loci and higher resolution."
+    },
+    "infoPopups": [
+      {
+        "speaker": "scientist-2",
+        "title": "Simplified Teaching Model",
+        "text": "This 6-allele model is for learning the matching idea. Clinical HLA assessment may include Class II loci, allele-level resolution, antibodies, crossmatch results, and the clinical context.",
+        "audio": "/assets/audio/scientist-2/six-allele-model.mp3",
+        "x": 1015,
+        "y": 230
+      }
+    ],
+    "cards": [
+      {
+        "title": "SIMPLIFIED TEACHING MODEL",
+        "text": "Compare HLA-A, HLA-B, and HLA-C only.",
+        "x": 640,
+        "y": 132,
+        "width": 520,
+        "height": 75
+      },
+      {
+        "title": "Recipient",
+        "text": "A*02  A*24\nB*07  B*44\nC*07  C*16",
+        "x": 420,
+        "y": 275,
+        "width": 300,
+        "height": 150
+      },
+      {
+        "title": "Donor",
+        "text": "A*02  A*24\nB*07  B*35\nC*07  C*12",
+        "x": 820,
+        "y": 275,
+        "width": 300,
+        "height": 150
+      },
+      {
+        "title": "Result",
+        "text": "4 of 6 match in this model.\nA closer HLA match usually means lower immune mismatch risk.",
+        "x": 640,
+        "y": 418,
+        "width": 480,
+        "height": 90
+      }
+    ],
+    "props": [
+      {
+        "asset": "allele-report",
+        "x": 320,
+        "y": 322,
+        "scale": 0.45,
+        "depth": 3
+      },
+      {
+        "asset": "allele-report",
+        "x": 920,
+        "y": 322,
+        "scale": 0.45,
+        "depth": 3
+      }
+    ],
+    "characters": [
+      {
+        "asset": "scientist-1",
+        "sprite": "scientist-1-sheet",
+        "x": 400,
+        "y": 515,
+        "scale": 0.82,
+        "action": "idle",
+        "depth": 7
+      },
+      {
+        "asset": "scientist-2",
+        "sprite": "scientist-2-sheet",
+        "x": 545,
+        "y": 515,
+        "scale": 0.92,
+        "action": "point",
+        "depth": 8
+      },
+      {
+        "asset": "scientist-3",
+        "sprite": "scientist-3-sheet",
+        "x": 690,
+        "y": 515,
+        "scale": 0.82,
+        "action": "idle",
+        "depth": 7
+      },
+      {
+        "asset": "scientist-4",
+        "sprite": "scientist-4-sheet",
+        "x": 835,
+        "y": 515,
+        "scale": 0.82,
+        "action": "idle",
+        "depth": 7
+      }
+    ]
+  },
+  {
+    "id": "samples-dna-pcr",
+    "number": 5,
+    "presenter": "scientist-3",
+    "title": "Samples, DNA, and PCR",
+    "shortLabel": "DNA + PCR",
+    "timelineIcon": "icon-dna-tube",
+    "background": "bg-pixel-lab",
+    "dialogue": {
+      "speaker": "Scientist 3",
+      "text": "The lab receives donor and recipient specimens, extracts DNA, checks quality, and uses PCR to copy HLA target regions."
+    },
+    "infoPopups": [
+      {
+        "speaker": "scientist-3",
+        "title": "From Sample to DNA",
+        "text": "DNA-based HLA typing starts with reliable specimens and clean genomic DNA. Poor DNA can cause weak or failed amplification.",
+        "audio": "/assets/audio/scientist-3/samples-dna-pcr.mp3",
+        "x": 1010,
+        "y": 245
+      }
+    ],
+    "cards": [
+      {
+        "title": "1. Samples",
+        "text": "Donor and recipient specimens arrive with labels and identifiers.",
+        "x": 300,
+        "y": 175,
+        "width": 330,
+        "height": 100
+      },
+      {
+        "title": "2. Extract DNA",
+        "text": "Genomic DNA is isolated and checked for usable quality.",
+        "x": 640,
+        "y": 175,
+        "width": 330,
+        "height": 100
+      },
+      {
+        "title": "3. PCR",
+        "text": "Selected HLA regions are copied so the alleles can be detected.",
+        "x": 980,
+        "y": 175,
+        "width": 330,
+        "height": 100
+      }
+    ],
+    "props": [
+      {
+        "asset": "sample-tubes",
+        "x": 300,
+        "y": 330,
+        "scale": 0.72,
+        "depth": 3
+      },
+      {
+        "asset": "dna-helix",
+        "x": 640,
+        "y": 330,
+        "scale": 0.7,
+        "depth": 3
+      },
+      {
+        "asset": "pcr-machine",
+        "x": 980,
+        "y": 340,
+        "scale": 0.78,
+        "depth": 3
+      }
+    ],
+    "interaction": {
+      "type": "progress",
+      "button": "EXTRACT + PCR",
+      "result": "Donor and recipient HLA targets amplified."
+    },
+    "characters": [
+      {
+        "asset": "scientist-1",
+        "sprite": "scientist-1-sheet",
+        "x": 400,
+        "y": 515,
+        "scale": 0.82,
+        "action": "idle",
+        "depth": 7
+      },
+      {
+        "asset": "scientist-2",
+        "sprite": "scientist-2-sheet",
+        "x": 545,
+        "y": 515,
+        "scale": 0.82,
+        "action": "idle",
+        "depth": 7
+      },
+      {
+        "asset": "scientist-3",
+        "sprite": "scientist-3-sheet",
+        "x": 690,
+        "y": 515,
+        "scale": 0.92,
+        "action": "talk",
+        "depth": 8
+      },
+      {
+        "asset": "scientist-4",
+        "sprite": "scientist-4-sheet",
+        "x": 835,
+        "y": 515,
+        "scale": 0.82,
+        "action": "idle",
+        "depth": 7
+      }
+    ]
+  },
+  {
+    "id": "pcr-ssp",
+    "number": 6,
+    "presenter": "scientist-3",
+    "title": "PCR-SSP Finds an Allele",
+    "shortLabel": "PCR-SSP",
+    "timelineIcon": "icon-pcr",
+    "background": "bg-pixel-lab",
+    "dialogue": {
+      "speaker": "Scientist 3",
+      "text": "In PCR-SSP, a primer set is designed for a specific allele. If the primer matches, amplification happens and a gel band appears."
+    },
+    "infoPopups": [
+      {
+        "speaker": "scientist-3",
+        "title": "PCR-SSP Chain",
+        "text": "Primer match -> amplification -> gel band -> HLA allele call. No band means that primer set did not amplify the target under the test conditions.",
+        "audio": "/assets/audio/scientist-3/pcr-ssp.mp3",
+        "x": 955,
+        "y": 235
+      },
+      {
+        "speaker": "scientist-3",
+        "title": "Other Methods",
+        "text": "SSOP uses labeled probes, Sanger sequencing reads DNA sequence, and NGS can read many HLA regions at high depth. Labs choose methods based on resolution, time, and workflow.",
+        "audio": "/assets/audio/scientist-3/other-methods.mp3",
+        "x": 1070,
+        "y": 310
+      }
+    ],
+    "cards": [
+      {
+        "title": "1. Primer Match",
+        "text": "Allele-specific primer fits the target sequence.",
+        "x": 260,
+        "y": 175,
+        "width": 280,
+        "height": 95
+      },
+      {
+        "title": "2. Amplify",
+        "text": "PCR copies the target only when the primer works.",
+        "x": 525,
+        "y": 175,
+        "width": 280,
+        "height": 95
+      },
+      {
+        "title": "3. Gel Band",
+        "text": "A visible band marks successful amplification.",
+        "x": 790,
+        "y": 175,
+        "width": 280,
+        "height": 95
+      },
+      {
+        "title": "4. Allele Call",
+        "text": "The band pattern supports the HLA allele assignment.",
+        "x": 1055,
+        "y": 175,
+        "width": 280,
+        "height": 95
+      }
+    ],
+    "props": [
+      {
+        "asset": "pcr-machine",
+        "x": 415,
+        "y": 330,
+        "scale": 0.8,
+        "depth": 3
+      },
+      {
+        "asset": "hla-analyzer",
+        "x": 850,
+        "y": 335,
+        "scale": 0.7,
+        "depth": 3
+      }
+    ],
+    "interaction": {
+      "type": "progress",
+      "button": "RUN PCR-SSP",
+      "result": "Band detected: allele-specific amplification supports the HLA call."
+    },
+    "characters": [
+      {
+        "asset": "scientist-1",
+        "sprite": "scientist-1-sheet",
+        "x": 400,
+        "y": 515,
+        "scale": 0.82,
+        "action": "idle",
+        "depth": 7
+      },
+      {
+        "asset": "scientist-2",
+        "sprite": "scientist-2-sheet",
+        "x": 545,
+        "y": 515,
+        "scale": 0.82,
+        "action": "idle",
+        "depth": 7
+      },
+      {
+        "asset": "scientist-3",
+        "sprite": "scientist-3-sheet",
+        "x": 690,
+        "y": 515,
+        "scale": 0.92,
+        "action": "point",
+        "depth": 8
+      },
+      {
+        "asset": "scientist-4",
+        "sprite": "scientist-4-sheet",
+        "x": 835,
+        "y": 515,
+        "scale": 0.82,
+        "action": "idle",
+        "depth": 7
+      }
+    ]
+  },
+  {
+    "id": "compare-risk",
+    "number": 7,
+    "presenter": "scientist-4",
+    "title": "Compare Results and Risk",
+    "shortLabel": "RISK",
+    "timelineIcon": "icon-analyzer",
+    "background": "bg-pixel-lab",
+    "dialogue": {
+      "speaker": "Scientist 4",
+      "text": "The lab compares donor and recipient HLA results. More mismatch can raise rejection risk, but HLA is only one part of compatibility."
+    },
+    "infoPopups": [
+      {
+        "speaker": "scientist-4",
+        "title": "Compatibility Is a Picture",
+        "text": "A favorable HLA comparison can reduce concern for immune mismatch, but it does not approve the transplant by itself.",
+        "audio": "/assets/audio/scientist-4/compare-risk.mp3",
+        "x": 1010,
+        "y": 235
+      }
+    ],
+    "cards": [
+      {
+        "title": "Donor HLA",
+        "text": "A*02, A*24\nB*07, B*35\nC*07, C*12",
+        "x": 355,
+        "y": 240,
+        "width": 310,
+        "height": 145
+      },
+      {
+        "title": "Recipient HLA",
+        "text": "A*02, A*24\nB*07, B*44\nC*07, C*16",
+        "x": 775,
+        "y": 240,
+        "width": 310,
+        "height": 145
+      },
+      {
+        "title": "Risk Message",
+        "text": "Closer HLA compatibility is favorable, but antibodies and crossmatch still matter.",
+        "x": 590,
+        "y": 408,
+        "width": 520,
+        "height": 88
+      }
+    ],
+    "props": [
+      {
+        "asset": "allele-report",
+        "x": 230,
+        "y": 315,
+        "scale": 0.5,
+        "depth": 3
+      },
+      {
+        "asset": "allele-report",
+        "x": 900,
+        "y": 315,
+        "scale": 0.5,
+        "depth": 3
+      }
+    ],
+    "interaction": {
+      "type": "compare",
+      "button": "COMPARE HLA",
+      "result": "HLA compatibility is favorable for this teaching case."
+    },
+    "characters": [
+      {
+        "asset": "scientist-1",
+        "sprite": "scientist-1-sheet",
+        "x": 400,
+        "y": 515,
+        "scale": 0.82,
+        "action": "idle",
+        "depth": 7
+      },
+      {
+        "asset": "scientist-2",
+        "sprite": "scientist-2-sheet",
+        "x": 545,
+        "y": 515,
+        "scale": 0.82,
+        "action": "idle",
+        "depth": 7
+      },
+      {
+        "asset": "scientist-3",
+        "sprite": "scientist-3-sheet",
+        "x": 690,
+        "y": 515,
+        "scale": 0.82,
+        "action": "idle",
+        "depth": 7
+      },
+      {
+        "asset": "scientist-4",
+        "sprite": "scientist-4-sheet",
+        "x": 835,
+        "y": 515,
+        "scale": 0.92,
+        "action": "talk",
+        "depth": 8
+      }
+    ]
+  },
+  {
+    "id": "final-lab-report",
+    "number": 8,
+    "presenter": "scientist-4",
+    "title": "Final Laboratory Report",
+    "shortLabel": "REPORT",
+    "timelineIcon": "icon-rejection",
+    "background": "bg-pixel-lab",
+    "dialogue": {
+      "speaker": "Scientist 4",
+      "text": "The HLA typing report is sent to the transplant team. The team still needs antibody screening, crossmatching, and clinical review."
+    },
+    "infoPopups": [
+      {
+        "speaker": "scientist-4",
+        "title": "Typing vs Antibodies",
+        "text": "DNA-based HLA typing identifies alleles. Antibody screening looks for anti-HLA antibodies. Donor crossmatch tests whether recipient serum reacts with donor cells.",
+        "audio": "/assets/audio/scientist-4/final-report.mp3",
+        "x": 1010,
+        "y": 235
+      }
+    ],
+    "cards": [
+      {
+        "title": "DNA-Based HLA Typing Complete",
+        "text": "",
+        "x": 640,
+        "y": 145,
+        "width": 620,
+        "height": 62,
+        "depth": 11
+      },
+      {
+        "title": "HLA Compatibility: Favorable",
+        "text": "",
+        "x": 640,
+        "y": 220,
+        "width": 620,
+        "height": 62,
+        "depth": 11
+      },
+      {
+        "title": "Antibody Screening and Donor Crossmatch Still Required",
+        "text": "",
+        "x": 640,
+        "y": 295,
+        "width": 760,
+        "height": 62,
+        "depth": 11
+      },
+      {
+        "title": "Report Sent to Transplant Team",
+        "text": "",
+        "x": 640,
+        "y": 370,
+        "width": 620,
+        "height": 62,
+        "depth": 11
+      }
+    ],
+    "props": [
+      {
+        "asset": "report-printer",
+        "x": 215,
+        "y": 335,
+        "scale": 0.75,
+        "depth": 3
+      },
+      {
+        "asset": "allele-report",
+        "x": 995,
+        "y": 335,
+        "scale": 0.58,
+        "depth": 3
+      }
+    ],
+    "interaction": {
+      "type": "final",
+      "button": "SEND REPORT",
+      "result": "Report sent to the transplant team."
+    },
+    "characters": [
+      {
+        "asset": "scientist-1",
+        "sprite": "scientist-1-sheet",
+        "x": 400,
+        "y": 515,
+        "scale": 0.82,
+        "action": "celebrate",
+        "depth": 7
+      },
+      {
+        "asset": "scientist-2",
+        "sprite": "scientist-2-sheet",
+        "x": 545,
+        "y": 515,
+        "scale": 0.82,
+        "action": "celebrate",
+        "depth": 7
+      },
+      {
+        "asset": "scientist-3",
+        "sprite": "scientist-3-sheet",
+        "x": 690,
+        "y": 515,
+        "scale": 0.82,
+        "action": "celebrate",
+        "depth": 7
+      },
+      {
+        "asset": "scientist-4",
+        "sprite": "scientist-4-sheet",
+        "x": 835,
+        "y": 515,
+        "scale": 0.92,
+        "action": "point",
+        "depth": 8
+      }
+    ]
+  }
+]

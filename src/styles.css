@@ -1,0 +1,4 @@
+html, body { margin: 0; width: 100%; height: 100%; background: #080d21; overflow: hidden; }
+body { font-family: "Courier New", monospace; }
+#app-shell { width: 100%; height: 100%; display: grid; place-items: center; }
+canvas { image-rendering: pixelated; image-rendering: crisp-edges; box-shadow: 0 0 0 4px #685680, 0 20px 80px #0008; }

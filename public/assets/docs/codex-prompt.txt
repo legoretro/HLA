@@ -1,0 +1,171 @@
+BUILD PROMPT FOR CODEX
+
+Create a GitHub Pages playable web app called HLA Quest.
+
+Main goal:
+A linear, retro 90s-style educational game for an 11-minute MLS student presentation. It teaches HLA from basics to organ compatibility and DNA-based HLA typing. It should feel like a 90s Nintendo/PC educational game, but simple enough to run reliably in class.
+
+Important:
+- Use Phaser 3 + Vite + JavaScript.
+- It must run locally and on GitHub Pages.
+- No backend, no login, no Supabase.
+- Computer/projector only. No phones required.
+- The presenter clicks NEXT or clicks the bottom chapter path.
+- No keyboard walking required.
+- The four women MLS student characters should auto-slide/auto-walk slightly into position when a chapter changes.
+- The presentation must be linear, but all completed chapters can be clicked again from the bottom path, like PowerPoint navigation.
+
+Use the included asset pack:
+public/assets/logo/logo-hla-quest.png
+public/assets/backgrounds/bg-main-lab.png
+public/assets/backgrounds/bg-hospital.png
+public/assets/backgrounds/bg-immune-system.png
+public/assets/backgrounds/bg-chromosome-6.png
+public/assets/backgrounds/bg-organ-case.png
+public/assets/backgrounds/bg-molecular-lab.png
+public/assets/characters/scientist-1.png
+public/assets/characters/scientist-2.png
+public/assets/characters/scientist-3.png
+public/assets/characters/scientist-4.png
+public/assets/characters/prof-histo.png
+public/assets/icons/*.png
+public/assets/ui/dialog-box.png
+public/assets/ui/next-button.png
+
+If any asset is missing, show a visible placeholder with the missing filename.
+
+Visual style:
+- Dark navy background.
+- Purple/pink retro UI panels.
+- Yellow NEXT button.
+- White/pale pink dialogue boxes.
+- Bottom-only chapter path, no left sidebar.
+- Pixel-art inspired, pastel lab background.
+- Four women MLS student characters in white lab coats.
+- Friendly, not too formal. MLS students teaching other MLS students.
+
+Layout:
+Top left: HLA Quest logo.
+Top center: Chapter X of 12 with hearts/HP.
+Top right: small buttons for Glossary, Notes, Settings.
+Center: scene background with four MLS scientist characters.
+Bottom left/center: dialogue box with speaker portrait and text.
+Bottom full width: chapter path with circular icons and labels.
+Bottom right: large NEXT button.
+
+Chapters:
+1. Welcome to HLA Quest
+2. Cell ID Badges
+3. The HLA Neighborhood
+4. Class I Crew
+5. Class II Crew
+6. Family Match Map
+7. Kidney Case Arrives
+8. Get the DNA
+9. Copy the HLA Genes
+10. Decode the HLA Code
+11. Match or No Match?
+12. Final Boss: Rejection Risk
+
+Science popups:
+Each chapter should have at least one clickable glowing “i” icon. When clicked, open a retro popup with a short explanation.
+
+Chapter content:
+
+1. Welcome to HLA Quest
+Text:
+“Welcome to HLA Quest! Four MLS students. One kidney case. A whole lot of cell ID drama.”
+Info:
+“HLA stands for Human Leukocyte Antigen. These molecules help the immune system recognize self vs non-self.”
+
+2. Cell ID Badges
+Text:
+“Think of HLA as the cell’s ID badge. Immune cells check these badges before deciding if something belongs.”
+Info:
+“HLA molecules display small peptide pieces on cell surfaces. T cells read these displays.”
+
+3. The HLA Neighborhood
+Text:
+“The HLA genes live together on chromosome 6, in the major histocompatibility complex.”
+Info:
+“MHC is the gene region. HLA is the human version of those MHC genes.”
+
+4. Class I Crew
+Text:
+“HLA Class I molecules are found on almost all nucleated cells. They show intracellular peptides to CD8+ T cells.”
+Key players:
+HLA-A, HLA-B, HLA-C
+
+5. Class II Crew
+Text:
+“HLA Class II molecules are mostly on antigen-presenting cells. They show extracellular peptides to CD4+ T cells.”
+Key players:
+HLA-DR, HLA-DQ, HLA-DP
+
+6. Family Match Map
+Text:
+“You inherit one HLA haplotype from each parent, so relatives can share HLA patterns.”
+Info:
+“Siblings can be a full match, half match, or not match depending on which haplotypes they inherit.”
+
+7. Kidney Case Arrives
+Text:
+“A kidney case arrives. Before transplant, the lab must help determine donor-recipient compatibility.”
+Info:
+“Organ compatibility uses HLA typing, antibody testing, and crossmatch information. This game focuses on DNA-based HLA typing.”
+
+8. Get the DNA
+Text:
+“First, extract DNA from donor and recipient samples.”
+Interaction:
+Click a tube/extractor and animate DNA extraction progress.
+Info:
+“DNA quality matters because poor DNA can cause failed amplification or unclear typing.”
+
+9. Copy the HLA Genes
+Text:
+“PCR copies the HLA target regions so they can be detected and analyzed.”
+Show:
+HLA-A, HLA-B, HLA-C, DRB1, DQB1
+Info:
+“PCR-based methods include SSP and SSO. Sequencing and NGS can provide higher-resolution typing.”
+
+10. Decode the HLA Code
+Text:
+“The typing system identifies the donor and recipient HLA alleles.”
+Show:
+Recipient and donor allele table.
+Info:
+“Allele-level typing is more specific than broad antigen-level typing.”
+
+11. Match or No Match?
+Text:
+“Now compare the HLA profiles. The closer the HLA match, the lower the immune mismatch risk.”
+Show table:
+HLA-A, HLA-B, HLA-C, DRB1, DQB1 with donor and recipient values and green checks.
+Info:
+“HLA compatibility is only one part of organ transplant decisions. Antibody screen and crossmatch are also important.”
+
+12. Final Boss: Rejection Risk
+Text:
+“Final boss: immune rejection risk. Accurate HLA typing helps the transplant team choose safer matches.”
+Final screen:
+“Case complete: DNA-based HLA typing report generated.”
+“Report sent to transplant team.”
+
+Functional requirements:
+- NEXT button advances chapters.
+- Bottom chapter path allows clicking any unlocked/completed chapter.
+- Chapter icons show check marks when completed.
+- “i” icon opens/closes popup.
+- Auto-save progress in localStorage.
+- Include Reset Progress button in Settings.
+- Include simple glossary modal with terms: HLA, MHC, Class I, Class II, allele, haplotype, PCR, NGS, crossmatch, rejection.
+- Include README with install/run/deploy steps:
+  npm install
+  npm run dev
+  npm run build
+  deploy to GitHub Pages
+
+Important:
+Keep the language simple. This is for MLS students teaching other MLS students in an 11-minute presentation. Do not overload the screen with paragraphs.

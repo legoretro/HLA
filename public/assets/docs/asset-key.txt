@@ -1,0 +1,43 @@
+HLA QUEST ASSET KEY
+
+Drop this whole public/assets folder into the Codex project.
+
+LOGO
+logo/logo-hla-quest.png = top-left HLA Quest logo
+
+BACKGROUNDS
+backgrounds/bg-main-lab.png = main classroom/lab screen
+backgrounds/bg-hospital.png = hospital/case arrival
+backgrounds/bg-immune-system.png = cell ID badges/immune system
+backgrounds/bg-chromosome-6.png = chromosome 6/HLA neighborhood
+backgrounds/bg-organ-case.png = kidney case arrives
+backgrounds/bg-molecular-lab.png = DNA/PCR/HLA typing scenes
+
+CHARACTERS
+characters/scientist-1.png = MLS scientist #1
+characters/scientist-2.png = MLS scientist #2
+characters/scientist-3.png = MLS scientist #3
+characters/scientist-4.png = MLS scientist #4
+characters/prof-histo.png = dialogue speaker portrait
+
+ICONS
+icons/icon-welcome.png = bottom chapter 1
+icons/icon-cell-id.png = bottom chapter 2
+icons/icon-chromosome.png = bottom chapter 3
+icons/icon-class-i.png = bottom chapter 4
+icons/icon-class-ii.png = bottom chapter 5
+icons/icon-family.png = bottom chapter 6
+icons/icon-kidney.png = bottom chapter 7
+icons/icon-dna-tube.png = bottom chapter 8
+icons/icon-pcr.png = bottom chapter 9
+icons/icon-analyzer.png = bottom chapter 10
+icons/icon-match.png = bottom chapter 11
+icons/icon-rejection.png = bottom chapter 12
+icons/popup-info.png = glowing i info icon
+
+UI
+ui/dialog-box.png = retro dialogue box
+ui/next-button.png = yellow next button
+
+DOCS
+docs/codex-prompt.txt = full prompt to paste into Codex
