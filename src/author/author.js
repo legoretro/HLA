@@ -6,7 +6,8 @@ let currentIndex = 0;
 
 const $ = id => document.getElementById(id);
 const base = import.meta.env.BASE_URL || './';
-const presenters = ['scientist-1', 'scientist-2', 'scientist-3', 'scientist-4'];
+const presenters = ['team', 'scientist-1', 'scientist-2', 'scientist-3', 'scientist-4'];
+const popupSpeakers = ['scientist-1', 'scientist-2', 'scientist-3', 'scientist-4'];
 const backgrounds = [
   'bg-pixel-lab',
   'bg-room-shell',
@@ -159,7 +160,7 @@ function renderPopupControls() {
       <label>Caption<textarea rows="4" data-group="popup" data-i="${index}" data-k="text">${escapeHtml(popup.text || '')}</textarea></label>
       <label>Audio path<input data-group="popup" data-i="${index}" data-k="audio" value="${escapeHtml(popup.audio || '')}"></label>
       <div class="control-grid">
-        <label>Speaker<select data-group="popup" data-i="${index}" data-k="speaker">${optionList(presenters, popup.speaker || c.presenter)}</select></label>
+        <label>Speaker<select data-group="popup" data-i="${index}" data-k="speaker">${optionList(popupSpeakers, popup.speaker || (c.presenter === 'team' ? 'scientist-1' : c.presenter))}</select></label>
         <label>X<input type="number" data-group="popup" data-i="${index}" data-k="x" value="${popup.x ?? 1000}"></label>
         <label>Y<input type="number" data-group="popup" data-i="${index}" data-k="y" value="${popup.y ?? 240}"></label>
       </div>
@@ -373,8 +374,13 @@ function renderPreviewCharacters(c) {
 }
 
 function renderPreviewDialogue(c) {
+  const portrait = c.presenter === 'team'
+    ? ['scientist-1', 'scientist-2', 'scientist-3', 'scientist-4'].map((asset, index) =>
+        `<img style="left:${12 + index * 28}px;width:42px;" src="${publicAsset(`assets/characters/${asset}.png`)}" alt="">`
+      ).join('')
+    : `<img src="${publicAsset(`assets/characters/${c.presenter}.png`)}" alt="">`;
   $('previewDialogue').innerHTML = `
-    <img src="${publicAsset(`assets/characters/${c.presenter}.png`)}" alt="">
+    ${portrait}
     <strong>${escapeHtml(c.dialogue?.speaker || '')}</strong><br>
     ${escapeHtml(c.dialogue?.text || '')}
   `;
@@ -500,11 +506,12 @@ $('moveDown').addEventListener('click', () => {
 
 $('addPopup').addEventListener('click', () => {
   chapter().infoPopups ||= [];
+  const speaker = chapter().presenter === 'team' ? 'scientist-1' : (chapter().presenter || 'scientist-1');
   chapter().infoPopups.push({
-    speaker: chapter().presenter || 'scientist-1',
+    speaker,
     title: 'New Info',
     text: 'Caption text stays visible even when audio is missing.',
-    audio: `/assets/audio/${chapter().presenter || 'scientist-1'}/new-info.mp3`,
+    audio: `/assets/audio/${speaker}/new-info.mp3`,
     x: 1000,
     y: 240
   });

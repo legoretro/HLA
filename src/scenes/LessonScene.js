@@ -11,6 +11,7 @@ const ACTION_RANGES = {
 };
 
 const PRESENTER_NAMES = {
+  team: 'HLA Team',
   'scientist-1': 'Scientist 1',
   'scientist-2': 'Scientist 2',
   'scientist-3': 'Scientist 3',
@@ -65,6 +66,16 @@ export default class LessonScene extends Phaser.Scene {
     return obj;
   }
 
+  addSharpText(x, y, text, style = {}) {
+    const sharpStyle = {
+      fontFamily: 'Arial, Helvetica, sans-serif',
+      ...style
+    };
+    const object = this.add.text(x, y, text, sharpStyle);
+    object.setPadding?.(2, 1, 2, 1);
+    return object;
+  }
+
   renderChapter(index) {
     this.stopAudio();
     this.clearDynamic();
@@ -91,7 +102,7 @@ export default class LessonScene extends Phaser.Scene {
       this.addDynamic(this.add.image(640, 360, key).setDisplaySize(1280, 720).setDepth(0));
     } else {
       this.addDynamic(this.add.rectangle(640, 360, 1280, 720, 0x0F1732).setDepth(0));
-      this.addDynamic(this.add.text(640, 320, `Missing background: ${key}`, {
+      this.addDynamic(this.addSharpText(640, 320, `Missing background: ${key}`, {
         fontFamily: 'Courier New',
         fontSize: '28px',
         color: palette.white
@@ -108,43 +119,43 @@ export default class LessonScene extends Phaser.Scene {
 
     this.addDynamic(this.add.rectangle(140, 42, 210, 72, 0x080D21, 1)
       .setStrokeStyle(2, 0x685680).setDepth(21));
-    this.addDynamic(this.add.text(68, 10, 'HLA', {
+    this.addDynamic(this.addSharpText(68, 10, 'HLA', {
       fontFamily: 'Courier New',
       fontSize: '42px',
       fontStyle: 'bold',
       color: palette.pink
     }).setDepth(22));
-    this.addDynamic(this.add.text(69, 43, 'QUEST', {
+    this.addDynamic(this.addSharpText(69, 43, 'QUEST', {
       fontFamily: 'Courier New',
       fontSize: '30px',
       fontStyle: 'bold',
       color: palette.gold
     }).setDepth(22));
-    this.addDynamic(this.add.text(66, 69, 'LEARN. MATCH. SAVE LIVES.', {
+    this.addDynamic(this.addSharpText(66, 69, 'LEARN. MATCH. SAVE LIVES.', {
       fontFamily: 'Courier New',
       fontSize: '8px',
       fontStyle: 'bold',
       color: palette.white
     }).setDepth(22));
-    this.addDynamic(this.add.text(188, 15, 'X', {
+    this.addDynamic(this.addSharpText(188, 15, 'X', {
       fontFamily: 'Courier New',
       fontSize: '42px',
       color: palette.cyan
     }).setDepth(22));
-    this.addDynamic(this.add.text(198, 15, 'X', {
+    this.addDynamic(this.addSharpText(198, 15, 'X', {
       fontFamily: 'Courier New',
       fontSize: '42px',
       color: palette.pink
     }).setDepth(22));
-    this.addDynamic(this.add.text(330, 18, `SCENE ${chapter.number} OF ${chapters.length}`, {
+    this.addDynamic(this.addSharpText(330, 18, `SCENE ${chapter.number} OF ${chapters.length}`, {
       fontFamily: 'Courier New',
       fontSize: '18px',
       fontStyle: 'bold',
       color: palette.gold
     }).setDepth(21));
-    this.addDynamic(this.add.text(330, 43, chapter.title.toUpperCase(), {
+    this.addDynamic(this.addSharpText(330, 43, chapter.title.toUpperCase(), {
       fontFamily: 'Courier New',
-      fontSize: '26px',
+      fontSize: this.fitFont(chapter.title.toUpperCase(), 290, 26, 15),
       fontStyle: 'bold',
       color: palette.white
     }).setDepth(21));
@@ -152,13 +163,22 @@ export default class LessonScene extends Phaser.Scene {
     const presenterName = PRESENTER_NAMES[chapter.presenter] || chapter.dialogue?.speaker || 'Presenter';
     this.addDynamic(this.add.rectangle(760, 42, 245, 50, 0x222647)
       .setStrokeStyle(2, toColor(palette.lavender)).setDepth(21));
-    this.addDynamic(this.add.image(650, 46, chapter.presenter).setDisplaySize(42, 58).setDepth(22));
-    this.addDynamic(this.add.text(684, 30, 'PRESENTER', {
+    if (this.textures.exists(chapter.presenter)) {
+      this.addDynamic(this.add.image(650, 46, chapter.presenter).setDisplaySize(42, 58).setDepth(22));
+    } else {
+      this.addDynamic(this.addSharpText(650, 46, '4', {
+        fontFamily: 'Courier New',
+        fontSize: '28px',
+        fontStyle: 'bold',
+        color: palette.gold
+      }).setOrigin(0.5).setDepth(22));
+    }
+    this.addDynamic(this.addSharpText(684, 30, 'PRESENTER', {
       fontFamily: 'Courier New',
       fontSize: '12px',
       color: palette.cream
     }).setDepth(22));
-    this.addDynamic(this.add.text(684, 47, presenterName.toUpperCase(), {
+    this.addDynamic(this.addSharpText(684, 47, presenterName.toUpperCase(), {
       fontFamily: 'Courier New',
       fontSize: '17px',
       fontStyle: 'bold',
@@ -169,7 +189,7 @@ export default class LessonScene extends Phaser.Scene {
       const x = 960 + i * 102;
       const box = this.addDynamic(this.add.rectangle(x, 42, 92, 50, 0x222647, 1)
         .setStrokeStyle(2, 0x685680).setInteractive({ useHandCursor: true }).setDepth(21));
-      this.addDynamic(this.add.text(x, 42, label, {
+      this.addDynamic(this.addSharpText(x, 42, label, {
         fontFamily: 'Courier New',
         fontSize: '13px',
         color: palette.white
@@ -189,9 +209,9 @@ export default class LessonScene extends Phaser.Scene {
         .setStrokeStyle(4, toColor(palette.purple)).setDepth(depth));
       panel.setOrigin(0.5);
 
-      this.addDynamic(this.add.text(x, y - height / 2 + 14, card.title || '', {
+      this.addDynamic(this.addSharpText(x, y - height / 2 + 14, card.title || '', {
         fontFamily: 'Courier New',
-        fontSize: this.fitFont(card.title || '', width - 28, 20, 13),
+        fontSize: this.fitFont(card.title || '', width - 28, 24, 15),
         fontStyle: 'bold',
         color: palette.ink,
         align: 'center',
@@ -199,9 +219,9 @@ export default class LessonScene extends Phaser.Scene {
       }).setOrigin(0.5, 0).setDepth(depth + 1));
 
       if (card.text) {
-        this.addDynamic(this.add.text(x, y - height / 2 + 45, card.text, {
-          fontFamily: 'Courier New',
-          fontSize: this.fitFont(card.text, width - 32, 17, 12),
+        this.addDynamic(this.addSharpText(x, y - height / 2 + 45, card.text, {
+          fontFamily: 'Arial, Helvetica, sans-serif',
+          fontSize: this.fitFont(card.text, width - 32, 18, 14),
           color: palette.ink,
           align: 'center',
           lineSpacing: 4,
@@ -222,7 +242,7 @@ export default class LessonScene extends Phaser.Scene {
 
       this.addDynamic(this.add.rectangle(prop.x, prop.y, 170, 55, 0x222647, 0.92)
         .setStrokeStyle(2, toColor(palette.pink)).setDepth(prop.depth ?? 3));
-      this.addDynamic(this.add.text(prop.x, prop.y, `Missing: ${prop.asset}`, {
+      this.addDynamic(this.addSharpText(prop.x, prop.y, `Missing: ${prop.asset}`, {
         fontFamily: 'Courier New',
         fontSize: '13px',
         color: palette.white,
@@ -234,19 +254,30 @@ export default class LessonScene extends Phaser.Scene {
 
   drawCharacters(characters, presenter) {
     characters.forEach((character, i) => {
-      const active = character.asset === presenter;
+      const active = presenter !== 'team' && character.asset === presenter;
       const texture = this.textures.get(character.asset);
       const source = texture?.getSourceImage?.();
       const displayHeight = character.displayHeight ?? (character.scale ?? (active ? 0.9 : 0.8)) * 270;
       const displayWidth = source?.height ? (source.width / source.height) * displayHeight : displayHeight * 0.45;
+      const startHeight = active ? Math.round(displayHeight * 0.84) : displayHeight;
+      const startWidth = source?.height ? (source.width / source.height) * startHeight : startHeight * 0.45;
       const sprite = this.addDynamic(this.add.image(character.x - 48, character.y, character.asset)
         .setOrigin(0.5, 1)
-        .setDisplaySize(displayWidth, displayHeight)
+        .setDisplaySize(startWidth, startHeight)
         .setDepth(character.depth ?? (active ? 7 : 5)));
       this.tweens.add({ targets: sprite, x: character.x, duration: 360 + i * 80, ease: 'Sine.Out' });
+      if (active) {
+        this.tweens.add({
+          targets: sprite,
+          displayWidth,
+          displayHeight,
+          duration: 430,
+          ease: 'Back.Out'
+        });
+      }
 
       if (active) {
-        this.addDynamic(this.add.ellipse(character.x, character.y + 4, 78, 18, 0xF250AA, 0.38).setDepth(4));
+        this.addDynamic(this.add.ellipse(character.x, character.y + 4, 96, 20, 0xF250AA, 0.38).setDepth(4));
       }
 
       this.applyCharacterAction(sprite, character.action || 'idle', active);
@@ -269,17 +300,23 @@ export default class LessonScene extends Phaser.Scene {
 
   drawDialogue(chapter) {
     this.addDynamic(this.add.image(574, 552, 'dialog-panel').setDisplaySize(885, 132).setDepth(30));
-    this.addDynamic(this.add.image(170, 552, chapter.presenter).setDisplaySize(102, 142).setDepth(31));
+    if (this.textures.exists(chapter.presenter)) {
+      this.addDynamic(this.add.image(170, 552, chapter.presenter).setDisplaySize(102, 142).setDepth(31));
+    } else {
+      ['scientist-1', 'scientist-2', 'scientist-3', 'scientist-4'].forEach((asset, index) => {
+        this.addDynamic(this.add.image(118 + index * 35, 574, asset).setDisplaySize(42, 58).setDepth(31));
+      });
+    }
     this.addDynamic(this.add.rectangle(325, 501, 210, 34, 0x685680).setDepth(31));
-    this.addDynamic(this.add.text(325, 501, (chapter.dialogue?.speaker || 'Presenter').toUpperCase(), {
+    this.addDynamic(this.addSharpText(325, 501, (chapter.dialogue?.speaker || 'Presenter').toUpperCase(), {
       fontFamily: 'Courier New',
       fontSize: '18px',
       fontStyle: 'bold',
       color: palette.white
     }).setOrigin(0.5).setDepth(32));
-    this.addDynamic(this.add.text(245, 526, chapter.dialogue?.text || '', {
-      fontFamily: 'Courier New',
-      fontSize: '20px',
+    this.addDynamic(this.addSharpText(245, 526, chapter.dialogue?.text || '', {
+      fontFamily: 'Arial, Helvetica, sans-serif',
+      fontSize: '21px',
       color: palette.ink,
       wordWrap: { width: 690 },
       lineSpacing: 5
@@ -296,7 +333,7 @@ export default class LessonScene extends Phaser.Scene {
         .setInteractive({ useHandCursor: true }));
       ring.setInteractive({ useHandCursor: true });
       if (infoPopups.length > 1) {
-        this.addDynamic(this.add.text(x + 20, y - 24, String(index + 1), {
+        this.addDynamic(this.addSharpText(x + 20, y - 24, String(index + 1), {
           fontFamily: 'Courier New',
           fontSize: '13px',
           fontStyle: 'bold',
@@ -347,7 +384,7 @@ export default class LessonScene extends Phaser.Scene {
         icon.setAlpha(0.32);
       }
 
-      this.addDynamic(this.add.text(x, 686, chapter.shortLabel, {
+      this.addDynamic(this.addSharpText(x, 686, chapter.shortLabel, {
         fontFamily: 'Courier New',
         fontSize: '12px',
         fontStyle: i === this.currentIndex ? 'bold' : '',
@@ -358,7 +395,7 @@ export default class LessonScene extends Phaser.Scene {
 
       if (completed) {
         this.addDynamic(this.add.circle(x + 21, 633, 9, 0x58D36D).setDepth(44));
-        this.addDynamic(this.add.text(x + 21, 633, '✓', {
+        this.addDynamic(this.addSharpText(x + 21, 633, '✓', {
           fontFamily: 'Courier New',
           fontSize: '12px',
           fontStyle: 'bold',
@@ -372,7 +409,7 @@ export default class LessonScene extends Phaser.Scene {
     const disabled = this.currentIndex === 0;
     const button = this.addDynamic(this.add.rectangle(1024, 557, 118, 70, disabled ? 0x444760 : 0x222647)
       .setStrokeStyle(4, disabled ? 0x685680 : 0x55D6F5).setDepth(50));
-    this.addDynamic(this.add.text(1024, 557, 'BACK', {
+    this.addDynamic(this.addSharpText(1024, 557, 'BACK', {
       fontFamily: 'Courier New',
       fontSize: '22px',
       fontStyle: 'bold',
@@ -391,7 +428,7 @@ export default class LessonScene extends Phaser.Scene {
     const label = this.currentIndex === chapters.length - 1 ? 'RESTART' : 'NEXT >';
     const button = this.addDynamic(this.add.rectangle(1184, 557, 150, 78, 0xF8C646)
       .setStrokeStyle(5, 0xA45E00).setInteractive({ useHandCursor: true }).setDepth(50));
-    this.addDynamic(this.add.text(1184, 557, label, {
+    this.addDynamic(this.addSharpText(1184, 557, label, {
       fontFamily: 'Courier New',
       fontSize: label === 'RESTART' ? '21px' : '25px',
       fontStyle: 'bold',
@@ -416,7 +453,7 @@ export default class LessonScene extends Phaser.Scene {
     if (!interaction) return;
     const button = this.addDynamic(this.add.rectangle(1062, 455, 250, 52, 0x58D36D)
       .setStrokeStyle(3, 0x286F3C).setInteractive({ useHandCursor: true }).setDepth(18));
-    const text = this.addDynamic(this.add.text(1062, 455, interaction.button || 'RUN', {
+    const text = this.addDynamic(this.addSharpText(1062, 455, interaction.button || 'RUN', {
       fontFamily: 'Courier New',
       fontSize: this.fitFont(interaction.button || 'RUN', 220, 17, 12),
       fontStyle: 'bold',
@@ -436,7 +473,7 @@ export default class LessonScene extends Phaser.Scene {
         duration: 950,
         onComplete: () => {
           text.setText(interaction.type === 'final' ? 'SENT' : 'COMPLETE');
-          this.addDynamic(this.add.text(1062, 512, interaction.result || '', {
+          this.addDynamic(this.addSharpText(1062, 512, interaction.result || '', {
             fontFamily: 'Courier New',
             fontSize: '13px',
             color: palette.white,
@@ -456,7 +493,7 @@ export default class LessonScene extends Phaser.Scene {
     const panel = this.add.rectangle(640, 360, 820, 395, 0xFFF6FF).setStrokeStyle(6, 0x685680).setDepth(101);
     const portraitKey = info.speaker || `scientist-${Math.floor(this.currentIndex / 2) + 1}`;
     const portrait = this.add.image(310, 345, portraitKey).setDisplaySize(130, 178).setDepth(102);
-    const title = this.add.text(700, 214, info.title || 'Info', {
+    const title = this.addSharpText(700, 214, info.title || 'Info', {
       fontFamily: 'Courier New',
       fontSize: this.fitFont(info.title || 'Info', 590, 30, 18),
       fontStyle: 'bold',
@@ -464,7 +501,7 @@ export default class LessonScene extends Phaser.Scene {
       align: 'center',
       wordWrap: { width: 590 }
     }).setOrigin(0.5).setDepth(102);
-    const caption = this.add.text(705, 306, info.text || '', {
+    const caption = this.addSharpText(705, 306, info.text || '', {
       fontFamily: 'Courier New',
       fontSize: '21px',
       color: palette.ink,
@@ -472,7 +509,7 @@ export default class LessonScene extends Phaser.Scene {
       lineSpacing: 6,
       wordWrap: { width: 575 }
     }).setOrigin(0.5).setDepth(102);
-    const status = this.add.text(705, 430, this.audioStatus(info.audio), {
+    const status = this.addSharpText(705, 430, this.audioStatus(info.audio), {
       fontFamily: 'Courier New',
       fontSize: '13px',
       color: palette.purple,
@@ -491,7 +528,7 @@ export default class LessonScene extends Phaser.Scene {
 
     buttons.forEach(([label, x, handler]) => this.addModalButton(x, 475, label, handler));
 
-    const close = this.add.text(640, 535, '[ CLOSE ]', {
+    const close = this.addSharpText(640, 535, '[ CLOSE ]', {
       fontFamily: 'Courier New',
       fontSize: '21px',
       fontStyle: 'bold',
@@ -506,7 +543,7 @@ export default class LessonScene extends Phaser.Scene {
   addModalButton(x, y, label, handler) {
     const button = this.add.rectangle(x, y, 92, 42, 0x222647).setStrokeStyle(2, 0x685680)
       .setInteractive({ useHandCursor: true }).setDepth(102);
-    const text = this.add.text(x, y, label, {
+    const text = this.addSharpText(x, y, label, {
       fontFamily: 'Courier New',
       fontSize: '15px',
       fontStyle: 'bold',
@@ -609,20 +646,20 @@ export default class LessonScene extends Phaser.Scene {
     this.closeModal(false);
     const shade = this.add.rectangle(0, 0, 1280, 720, 0x000000, 0.55).setOrigin(0).setDepth(100).setInteractive();
     const panel = this.add.rectangle(640, 360, 760, 335, 0xFFF6FF).setStrokeStyle(6, 0x685680).setDepth(101);
-    const title = this.add.text(640, 245, label, {
+    const title = this.addSharpText(640, 245, label, {
       fontFamily: 'Courier New',
       fontSize: '30px',
       fontStyle: 'bold',
       color: palette.ink
     }).setOrigin(0.5).setDepth(102);
-    const body = this.add.text(640, 350, content, {
+    const body = this.addSharpText(640, 350, content, {
       fontFamily: 'Courier New',
       fontSize: '21px',
       color: palette.ink,
       align: 'center',
       wordWrap: { width: 650 }
     }).setOrigin(0.5).setDepth(102);
-    const close = this.add.text(640, 475, '[ CLOSE ]', {
+    const close = this.addSharpText(640, 475, '[ CLOSE ]', {
       fontFamily: 'Courier New',
       fontSize: '21px',
       fontStyle: 'bold',
@@ -641,10 +678,13 @@ export default class LessonScene extends Phaser.Scene {
   }
 
   fitFont(text, width, maxSize, minSize) {
-    const longest = String(text).split(/\s+/).reduce((a, b) => (b.length > a.length ? b : a), '');
-    if (!longest) return `${maxSize}px`;
-    const estimate = longest.length * maxSize * 0.62;
+    const value = String(text || '');
+    const longestWord = value.split(/\s+/).reduce((a, b) => (b.length > a.length ? b : a), '');
+    const longestLine = value.split('\n').reduce((a, b) => (b.length > a.length ? b : a), '');
+    const measure = Math.max(longestWord.length, Math.min(longestLine.length, 28));
+    if (!measure) return `${maxSize}px`;
+    const estimate = measure * maxSize * 0.62;
     if (estimate <= width) return `${maxSize}px`;
-    return `${Math.max(minSize, Math.floor(width / (longest.length * 0.62)))}px`;
+    return `${Math.max(minSize, Math.floor(width / (measure * 0.62)))}px`;
   }
 }
