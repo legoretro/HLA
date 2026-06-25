@@ -26,3 +26,37 @@ test('info popup shows voiceover controls without requiring audio', async ({ pag
   const screenshot = await page.screenshot();
   expect(screenshot.length).toBeGreaterThan(10000);
 });
+
+test('notes popup lists audio files without clipping', async ({ page }) => {
+  await page.goto('./');
+  await page.locator('canvas').waitFor();
+  await page.waitForTimeout(500);
+  await page.mouse.click(1062, 42);
+  await page.waitForTimeout(300);
+
+  const bounds = await page.evaluate(() => {
+    const scene = window.hlaQuestGame.scene.getScene('LessonScene');
+    const [, panel, , body, close] = scene.modalObjects;
+    const plain = bounds => ({
+      left: bounds.left,
+      right: bounds.right,
+      top: bounds.top,
+      bottom: bounds.bottom
+    });
+    return {
+      panel: plain(panel.getBounds()),
+      body: plain(body.getBounds()),
+      close: plain(close.getBounds())
+    };
+  });
+
+  expect(bounds.body.left).toBeGreaterThan(bounds.panel.left + 20);
+  expect(bounds.body.right).toBeLessThan(bounds.panel.right - 20);
+  expect(bounds.body.top).toBeGreaterThan(bounds.panel.top + 50);
+  expect(bounds.body.bottom).toBeLessThan(bounds.close.top - 12);
+});
+
+test('scene 2 uploaded voiceover file is available', async ({ page }) => {
+  const response = await page.goto('./assets/audio/scientist-1/scene-02-general-hla.mp3');
+  expect(response.status()).toBe(200);
+});

@@ -18,6 +18,31 @@ const PRESENTER_NAMES = {
   'scientist-4': 'Scientist 4'
 };
 
+const AUDIO_NOTES = [
+  'Voiceover file map. Use these exact names.',
+  'Upload inside: public/assets/audio/',
+  '',
+  '2  Scientist 1  General HLA',
+  '   scientist-1/scene-02-general-hla.mp3',
+  '3  Scientist 1  Class I vs Class II',
+  '   scientist-1/scene-03-class-i-class-ii.mp3',
+  '4  Scientist 2  Alleles and inheritance',
+  '   scientist-2/scene-04-alleles-inheritance.mp3',
+  '5  Scientist 2  Six-allele teaching model',
+  '   scientist-2/scene-05-six-allele-model.mp3',
+  '6  Scientist 3  Samples, DNA, PCR',
+  '   scientist-3/scene-06-dna-pcr.mp3',
+  '7A Scientist 3  PCR-SSP',
+  '   scientist-3/scene-07-pcr-ssp.mp3',
+  '7B Scientist 3  Other Methods popup',
+  '   scientist-3/scene-07-other-methods.mp3',
+  '8  Scientist 4  Final report',
+  '   scientist-4/scene-08-final-report.mp3',
+  '',
+  'The chapters.json audio path must match the file exactly.',
+  'Uploading to main needs a gh-pages rebuild before it is live.'
+].join('\n');
+
 const toColor = value => Phaser.Display.Color.HexStringToColor(value).color;
 
 export default class LessonScene extends Phaser.Scene {
@@ -639,27 +664,29 @@ export default class LessonScene extends Phaser.Scene {
 
     const content = {
       GLOSSARY: 'HLA: human leukocyte antigen\nMHC: major histocompatibility complex\nAllele: a gene version\nHaplotype: linked HLA alleles inherited from one parent\nCrossmatch: donor-recipient immune reactivity test',
-      NOTES: 'Presenter note: each scientist owns two scenes. Replace MP3 files in public/assets/audio/scientist-n/ and keep captions visible.'
+      NOTES: AUDIO_NOTES
     }[label] || '';
 
     this.stopAudio();
     this.closeModal(false);
     const shade = this.add.rectangle(0, 0, 1280, 720, 0x000000, 0.55).setOrigin(0).setDepth(100).setInteractive();
-    const panel = this.add.rectangle(640, 360, 760, 335, 0xFFF6FF).setStrokeStyle(6, 0x685680).setDepth(101);
-    const title = this.addSharpText(640, 245, label, {
+    const isNotes = label === 'NOTES';
+    const panel = this.add.rectangle(640, 360, isNotes ? 980 : 760, isNotes ? 520 : 335, 0xFFF6FF).setStrokeStyle(6, 0x685680).setDepth(101);
+    const title = this.addSharpText(640, isNotes ? 130 : 245, label, {
       fontFamily: 'Courier New',
       fontSize: '30px',
       fontStyle: 'bold',
       color: palette.ink
     }).setOrigin(0.5).setDepth(102);
-    const body = this.addSharpText(640, 350, content, {
+    const body = this.addSharpText(isNotes ? 185 : 640, isNotes ? 185 : 350, content, {
       fontFamily: 'Courier New',
-      fontSize: '21px',
+      fontSize: isNotes ? '16px' : '21px',
       color: palette.ink,
-      align: 'center',
-      wordWrap: { width: 650 }
-    }).setOrigin(0.5).setDepth(102);
-    const close = this.addSharpText(640, 475, '[ CLOSE ]', {
+      align: isNotes ? 'left' : 'center',
+      lineSpacing: isNotes ? 2 : 0,
+      wordWrap: { width: isNotes ? 900 : 650 }
+    }).setOrigin(isNotes ? 0 : 0.5, isNotes ? 0 : 0.5).setDepth(102);
+    const close = this.addSharpText(640, isNotes ? 585 : 475, '[ CLOSE ]', {
       fontFamily: 'Courier New',
       fontSize: '21px',
       fontStyle: 'bold',

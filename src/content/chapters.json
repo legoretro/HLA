@@ -89,7 +89,7 @@
         "speaker": "scientist-1",
         "title": "General HLA",
         "text": "Add a 10-15 second caption for this info popup.",
-        "audio": "/assets/audio/scientist-1/general-hla.mp3",
+        "audio": "/assets/audio/scientist-1/scene-02-general-hla.mp3",
         "x": 1010,
         "y": 245
       }
@@ -188,7 +188,7 @@
         "speaker": "scientist-1",
         "title": "Class I vs Class II",
         "text": "Add a 10-15 second caption for this info popup.",
-        "audio": "/assets/audio/scientist-1/class-i-class-ii.mp3",
+        "audio": "/assets/audio/scientist-1/scene-03-class-i-class-ii.mp3",
         "x": 1010,
         "y": 245
       }
@@ -285,7 +285,7 @@
         "speaker": "scientist-2",
         "title": "Alleles and Inheritance",
         "text": "Add a 10-15 second caption for this info popup.",
-        "audio": "/assets/audio/scientist-2/alleles-inheritance.mp3",
+        "audio": "/assets/audio/scientist-2/scene-04-alleles-inheritance.mp3",
         "x": 1010,
         "y": 245
       }
@@ -375,7 +375,7 @@
         "speaker": "scientist-2",
         "title": "Simplified Teaching Model",
         "text": "Add a 10-15 second caption for this info popup.",
-        "audio": "/assets/audio/scientist-2/six-allele-model.mp3",
+        "audio": "/assets/audio/scientist-2/scene-05-six-allele-model.mp3",
         "x": 1010,
         "y": 245
       }
@@ -466,7 +466,7 @@
         "speaker": "scientist-3",
         "title": "Samples to PCR",
         "text": "Add a 10-15 second caption for this info popup.",
-        "audio": "/assets/audio/scientist-3/samples-dna-pcr.mp3",
+        "audio": "/assets/audio/scientist-3/scene-06-dna-pcr.mp3",
         "x": 1010,
         "y": 245
       }
@@ -584,7 +584,7 @@
         "speaker": "scientist-3",
         "title": "PCR-SSP",
         "text": "Add a 10-15 second caption for PCR-SSP.",
-        "audio": "/assets/audio/scientist-3/pcr-ssp.mp3",
+        "audio": "/assets/audio/scientist-3/scene-07-pcr-ssp.mp3",
         "x": 955,
         "y": 235
       },
@@ -592,7 +592,7 @@
         "speaker": "scientist-3",
         "title": "Other Methods",
         "text": "Add SSOP, Sanger, and NGS notes here.",
-        "audio": "/assets/audio/scientist-3/other-methods.mp3",
+        "audio": "/assets/audio/scientist-3/scene-07-other-methods.mp3",
         "x": 1070,
         "y": 310
       }
@@ -703,7 +703,7 @@
         "speaker": "scientist-4",
         "title": "Typing vs Other Tests",
         "text": "Add a 10-15 second caption for this info popup.",
-        "audio": "/assets/audio/scientist-4/final-report.mp3",
+        "audio": "/assets/audio/scientist-4/scene-08-final-report.mp3",
         "x": 1010,
         "y": 245
       }

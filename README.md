@@ -37,10 +37,10 @@ public/assets/audio/scientist-3/
 public/assets/audio/scientist-4/
 ```
 
-Store the path in `src/content/chapters.json`, for example:
+Store the path in `src/content/chapters.json`, using the scene number and topic in the filename:
 
 ```json
-"/assets/audio/scientist-3/pcr-ssp.mp3"
+"/assets/audio/scientist-3/scene-07-pcr-ssp.mp3"
 ```
 
 Missing audio never breaks the popup; captions stay visible.
