@@ -43,9 +43,9 @@ const AUDIO_NOTES = [
   'Uploading to main needs a gh-pages rebuild before it is live.'
 ].join('\n');
 
-const MUSIC_INTRO_VOLUME = 0.24;
-const MUSIC_IDLE_VOLUME = 0.09;
-const MUSIC_DUCKED_VOLUME = 0.018;
+const MUSIC_INTRO_VOLUME = 0.11;
+const MUSIC_IDLE_VOLUME = 0.035;
+const MUSIC_DUCKED_VOLUME = 0.006;
 
 const toColor = value => Phaser.Display.Color.HexStringToColor(value).color;
 
