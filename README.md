@@ -4,13 +4,13 @@ A data-driven retro educational HLA presentation game built with Phaser 3 and Vi
 
 The game has 8 presenter-led scenes:
 
-1. What is HLA?
-2. Class I vs Class II
-3. Alleles and inheritance
-4. Simplified six-allele matching model
-5. Samples, DNA extraction, and PCR
-6. PCR-SSP and other methods popup
-7. Compare results and rejection risk
+1. Welcome to HLA Quest
+2. General HLA
+3. Class I vs Class II
+4. Alleles and inheritance
+5. Simplified six-allele matching model
+6. Samples, DNA extraction, and PCR
+7. PCR-SSP and other methods popup
 8. Final laboratory report
 
 ## Run
@@ -24,7 +24,23 @@ Open the local URL shown by Vite.
 
 ## Author Mode
 
-Open `/author.html` while the dev server is running. Edit scenes, presenters, dialogue, cards, props, info popups, audio paths, and scientist positions. Export `chapters.json`, then replace `src/content/chapters.json` with the exported file.
+Open `/author.html` while the dev server is running. Edit scenes, presenters, dialogue, short text labels, scene media, props, info popups, audio paths, and scientist positions. Export `chapters.json`, then replace `src/content/chapters.json` with the exported file.
+
+## Uploaded Images and YouTube
+
+Put class images and diagrams in:
+
+```text
+public/assets/uploads/
+```
+
+Reference them like:
+
+```json
+"/assets/uploads/chromosome-6-reference.png"
+```
+
+Scene media and popup media can also use YouTube URLs. No Supabase is required; uploaded content lives in the repository and is served by GitHub Pages after rebuilding `gh-pages`.
 
 ## Voiceovers
 

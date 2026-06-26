@@ -49,8 +49,11 @@ const propAssets = [
 ];
 const actions = ['idle', 'walk', 'talk', 'point', 'celebrate'];
 const interactionTypes = ['', 'progress', 'compare', 'final', 'reveal'];
+const mediaTypes = ['image', 'youtube'];
 
 function publicAsset(path) {
+  if (!path) return '';
+  if (/^https?:\/\//.test(path)) return path;
   return `${base}${path.replace(/^\//, '')}`;
 }
 
@@ -146,6 +149,7 @@ function updateFromFields() {
 function renderAllControls() {
   renderPopupControls();
   renderCardControls();
+  renderMediaControls();
   renderPropControls();
   renderCharacterControls();
 }
@@ -158,6 +162,8 @@ function renderPopupControls() {
       <strong>Popup ${index + 1}</strong>
       <label>Title<input data-group="popup" data-i="${index}" data-k="title" value="${escapeHtml(popup.title || '')}"></label>
       <label>Caption<textarea rows="4" data-group="popup" data-i="${index}" data-k="text">${escapeHtml(popup.text || '')}</textarea></label>
+      <label>Uploaded image path<input data-group="popup" data-i="${index}" data-k="image" value="${escapeHtml(popup.image || '')}" placeholder="/assets/uploads/chromosome-6-reference.png"></label>
+      <label>YouTube URL<input data-group="popup" data-i="${index}" data-k="youtube" value="${escapeHtml(popup.youtube || '')}" placeholder="https://www.youtube.com/watch?v=..."></label>
       <label>Audio path<input data-group="popup" data-i="${index}" data-k="audio" value="${escapeHtml(popup.audio || '')}"></label>
       <div class="control-grid">
         <label>Speaker<select data-group="popup" data-i="${index}" data-k="speaker">${optionList(popupSpeakers, popup.speaker || (c.presenter === 'team' ? 'scientist-1' : c.presenter))}</select></label>
@@ -174,6 +180,45 @@ function renderPopupControls() {
   });
   bindRemoveButtons('removePopup', '[data-remove-popup]', index => {
     chapter().infoPopups.splice(index, 1);
+  });
+}
+
+function renderMediaControls() {
+  const c = chapter();
+  c.media ||= [];
+  $('mediaControls').innerHTML = c.media.map((media, index) => `
+    <div class="control-card" data-media="${index}">
+      <strong>Media ${index + 1}</strong>
+      <label>Type<select data-group="media" data-i="${index}" data-k="type">${optionList(mediaTypes, media.type || 'image')}</select></label>
+      <label>Image path or YouTube URL<input data-group="media" data-i="${index}" data-k="src" value="${escapeHtml(media.src || media.youtube || '')}" placeholder="/assets/uploads/chromosome-6-reference.png"></label>
+      <label>Title<input data-group="media" data-i="${index}" data-k="title" value="${escapeHtml(media.title || '')}"></label>
+      <div class="control-grid">
+        <label>X<input type="number" data-group="media" data-i="${index}" data-k="x" value="${media.x ?? 640}"></label>
+        <label>Y<input type="number" data-group="media" data-i="${index}" data-k="y" value="${media.y ?? 270}"></label>
+        <label>Width<input type="number" data-group="media" data-i="${index}" data-k="width" value="${media.width ?? 420}"></label>
+        <label>Height<input type="number" data-group="media" data-i="${index}" data-k="height" value="${media.height ?? 240}"></label>
+        <label>Depth<input type="number" data-group="media" data-i="${index}" data-k="depth" value="${media.depth ?? 12}"></label>
+      </div>
+      <button class="danger" data-remove-media="${index}">Remove Media</button>
+    </div>
+  `).join('');
+
+  bindGroupInputs('media', (index, key, value) => {
+    const media = chapter().media[index];
+    if (key === 'src') {
+      media.src = value;
+      if (media.type === 'youtube') media.youtube = value;
+      return;
+    }
+    if (key === 'type') {
+      media.type = value;
+      if (value !== 'youtube') delete media.youtube;
+      return;
+    }
+    media[key] = ['x', 'y', 'width', 'height', 'depth'].includes(key) ? numberValue(value, media[key]) : value;
+  });
+  bindRemoveButtons('removeMedia', '[data-remove-media]', index => {
+    chapter().media.splice(index, 1);
   });
 }
 
@@ -280,12 +325,42 @@ function renderPreview() {
   const c = chapter();
   $('previewBackground').src = publicAsset(`assets/backgrounds/${c.background}.png`);
   renderPreviewCards(c);
+  renderPreviewMedia(c);
   renderPreviewProps(c);
   renderPreviewInfo(c);
   renderPreviewCharacters(c);
   renderPreviewDialogue(c);
   renderPreviewInteraction(c);
   renderPreviewPath();
+}
+
+function renderPreviewMedia(c) {
+  const wrap = $('previewMedia');
+  wrap.innerHTML = '';
+  (c.media || []).forEach(media => {
+    const width = media.width ?? 420;
+    const height = media.height ?? 240;
+    const el = document.createElement(media.type === 'youtube' ? 'div' : 'img');
+    el.className = 'preview-media';
+    el.style.left = `${(media.x ?? 640) - width / 2}px`;
+    el.style.top = `${(media.y ?? 270) - height / 2}px`;
+    el.style.width = `${width}px`;
+    el.style.height = `${height}px`;
+    el.style.zIndex = String(media.depth ?? 12);
+    if (media.type === 'youtube') {
+      el.textContent = 'YOUTUBE VIDEO';
+    } else {
+      el.src = publicAsset(media.src || media.image || '');
+      el.alt = media.title || '';
+    }
+    makeDraggable(el, point => {
+      media.x = Math.round(point.x);
+      media.y = Math.round(point.y);
+      el.style.left = `${media.x - width / 2}px`;
+      el.style.top = `${media.y - height / 2}px`;
+    });
+    wrap.appendChild(el);
+  });
 }
 
 function renderPreviewCards(c) {
@@ -522,6 +597,22 @@ $('addPopup').addEventListener('click', () => {
 $('addCard').addEventListener('click', () => {
   chapter().cards ||= [];
   chapter().cards.push({ title: 'New Card', text: 'Editable card text', x: 640, y: 240, width: 320, height: 110 });
+  renderAllControls();
+  renderPreview();
+});
+
+$('addMedia').addEventListener('click', () => {
+  chapter().media ||= [];
+  chapter().media.push({
+    type: 'image',
+    src: '/assets/uploads/chromosome-6-reference.png',
+    title: 'Uploaded image',
+    x: 640,
+    y: 270,
+    width: 460,
+    height: 260,
+    depth: 12
+  });
   renderAllControls();
   renderPreview();
 });

@@ -9,27 +9,27 @@
     "background": "bg-pixel-lab",
     "dialogue": {
       "speaker": "HLA Team",
-      "text": "Welcome to HLA Quest. Add your opening line here."
+      "text": "Welcome to HLA Quest."
     },
     "infoPopups": [],
     "cards": [
       {
-        "title": "WELCOME TO HLA QUEST",
-        "text": "Add your opening hook here.",
+        "title": "HLA Quest",
+        "text": "",
         "x": 640,
-        "y": 205,
-        "width": 610,
-        "height": 105,
+        "y": 170,
+        "width": 420,
+        "height": 80,
         "depth": 12
       },
       {
-        "title": "Presenter Flow",
-        "text": "1 -> 2 -> 3 -> 4",
+        "title": "Four presenters",
+        "text": "Eight scenes",
         "x": 640,
-        "y": 330,
-        "width": 410,
-        "height": 82,
-        "depth": 4
+        "y": 240,
+        "width": 420,
+        "height": 80,
+        "depth": 12
       }
     ],
     "props": [],
@@ -70,7 +70,8 @@
         "action": "idle",
         "depth": 6
       }
-    ]
+    ],
+    "media": []
   },
   {
     "id": "general-hla",
@@ -82,56 +83,49 @@
     "background": "bg-pixel-lab",
     "dialogue": {
       "speaker": "Scientist 1",
-      "text": "Add your general HLA explanation here."
+      "text": "Add your short HLA intro here."
     },
     "infoPopups": [
       {
         "speaker": "scientist-1",
         "title": "General HLA",
-        "text": "Add a 10-15 second caption for this info popup.",
+        "text": "Short caption placeholder.",
         "audio": "/assets/audio/scientist-1/scene-02-general-hla.mp3",
         "x": 1010,
-        "y": 245
+        "y": 245,
+        "image": "/assets/uploads/chromosome-6-reference.png"
       }
     ],
     "cards": [
       {
-        "title": "HLA",
-        "text": "Add short definition.",
-        "x": 320,
-        "y": 180,
-        "width": 360,
-        "height": 96,
-        "depth": 4
+        "title": "HLA?",
+        "text": "What is it?",
+        "x": 300,
+        "y": 150,
+        "width": 260,
+        "height": 80,
+        "depth": 12
       },
       {
-        "title": "MHC / Chromosome 6",
-        "text": "Add key location note.",
+        "title": "MHC",
+        "text": "",
         "x": 640,
-        "y": 180,
-        "width": 390,
-        "height": 96,
-        "depth": 4
+        "y": 150,
+        "width": 300,
+        "height": 80,
+        "depth": 12
       },
       {
-        "title": "Self vs Non-Self",
-        "text": "Add simple example.",
-        "x": 990,
-        "y": 180,
-        "width": 360,
-        "height": 96,
-        "depth": 4
+        "title": "Self vs non-self",
+        "text": "",
+        "x": 980,
+        "y": 150,
+        "width": 300,
+        "height": 80,
+        "depth": 12
       }
     ],
-    "props": [
-      {
-        "asset": "chromosome-6",
-        "x": 640,
-        "y": 330,
-        "scale": 0.62,
-        "depth": 3
-      }
-    ],
+    "props": [],
     "characters": [
       {
         "asset": "scientist-1",
@@ -169,6 +163,18 @@
         "action": "idle",
         "depth": 6
       }
+    ],
+    "media": [
+      {
+        "type": "image",
+        "src": "/assets/uploads/chromosome-6-reference.png",
+        "title": "Chromosome 6 reference",
+        "x": 720,
+        "y": 300,
+        "width": 420,
+        "height": 236,
+        "depth": 12
+      }
     ]
   },
   {
@@ -181,13 +187,13 @@
     "background": "bg-pixel-lab",
     "dialogue": {
       "speaker": "Scientist 1",
-      "text": "Add the Class I versus Class II explanation here."
+      "text": "Add your Class I and Class II line here."
     },
     "infoPopups": [
       {
         "speaker": "scientist-1",
         "title": "Class I vs Class II",
-        "text": "Add a 10-15 second caption for this info popup.",
+        "text": "Short caption placeholder.",
         "audio": "/assets/audio/scientist-1/scene-03-class-i-class-ii.mp3",
         "x": 1010,
         "y": 245
@@ -196,21 +202,21 @@
     "cards": [
       {
         "title": "Class I",
-        "text": "Add Class I bullets.",
-        "x": 390,
-        "y": 178,
-        "width": 410,
-        "height": 112,
-        "depth": 4
+        "text": "Most nucleated cells",
+        "x": 400,
+        "y": 160,
+        "width": 330,
+        "height": 80,
+        "depth": 12
       },
       {
         "title": "Class II",
-        "text": "Add Class II bullets.",
-        "x": 870,
-        "y": 178,
-        "width": 410,
-        "height": 112,
-        "depth": 4
+        "text": "Immune presenters",
+        "x": 860,
+        "y": 160,
+        "width": 330,
+        "height": 80,
+        "depth": 12
       }
     ],
     "props": [
@@ -278,13 +284,13 @@
     "background": "bg-pixel-lab",
     "dialogue": {
       "speaker": "Scientist 2",
-      "text": "Add your polymorphism, alleles, and inheritance explanation here."
+      "text": "Add your alleles and inheritance line here."
     },
     "infoPopups": [
       {
         "speaker": "scientist-2",
         "title": "Alleles and Inheritance",
-        "text": "Add a 10-15 second caption for this info popup.",
+        "text": "Short caption placeholder.",
         "audio": "/assets/audio/scientist-2/scene-04-alleles-inheritance.mp3",
         "x": 1010,
         "y": 245
@@ -293,21 +299,21 @@
     "cards": [
       {
         "title": "Polymorphism",
-        "text": "Add short note.",
+        "text": "Many versions",
         "x": 350,
-        "y": 180,
-        "width": 360,
-        "height": 96,
-        "depth": 4
+        "y": 155,
+        "width": 330,
+        "height": 80,
+        "depth": 12
       },
       {
         "title": "Inheritance",
-        "text": "Add haplotype note.",
-        "x": 775,
-        "y": 180,
-        "width": 360,
-        "height": 96,
-        "depth": 4
+        "text": "One haplotype from each parent",
+        "x": 780,
+        "y": 155,
+        "width": 430,
+        "height": 80,
+        "depth": 12
       }
     ],
     "props": [
@@ -368,13 +374,13 @@
     "background": "bg-pixel-lab",
     "dialogue": {
       "speaker": "Scientist 2",
-      "text": "Add your simplified six-allele matching example here."
+      "text": "Add your simplified matching model line here."
     },
     "infoPopups": [
       {
         "speaker": "scientist-2",
         "title": "Simplified Teaching Model",
-        "text": "Add a 10-15 second caption for this info popup.",
+        "text": "Short caption placeholder.",
         "audio": "/assets/audio/scientist-2/scene-05-six-allele-model.mp3",
         "x": 1010,
         "y": 245
@@ -382,31 +388,31 @@
     ],
     "cards": [
       {
-        "title": "SIMPLIFIED TEACHING MODEL",
-        "text": "Add your A, B, C matching example.",
+        "title": "Simplified model",
+        "text": "Teaching example only",
         "x": 640,
-        "y": 150,
-        "width": 620,
-        "height": 95,
-        "depth": 4
+        "y": 135,
+        "width": 560,
+        "height": 80,
+        "depth": 12
       },
       {
         "title": "Recipient",
-        "text": "Add alleles.",
-        "x": 420,
-        "y": 285,
-        "width": 300,
-        "height": 92,
-        "depth": 4
+        "text": "Add alleles",
+        "x": 410,
+        "y": 250,
+        "width": 260,
+        "height": 80,
+        "depth": 12
       },
       {
         "title": "Donor",
-        "text": "Add alleles.",
-        "x": 840,
-        "y": 285,
-        "width": 300,
-        "height": 92,
-        "depth": 4
+        "text": "Add alleles",
+        "x": 870,
+        "y": 250,
+        "width": 260,
+        "height": 80,
+        "depth": 12
       }
     ],
     "props": [],
@@ -459,45 +465,45 @@
     "background": "bg-pixel-lab",
     "dialogue": {
       "speaker": "Scientist 3",
-      "text": "Add your sample collection, DNA extraction, and PCR explanation here."
+      "text": "Add your samples, DNA, and PCR line here."
     },
     "infoPopups": [
       {
         "speaker": "scientist-3",
         "title": "Samples to PCR",
-        "text": "Add a 10-15 second caption for this info popup.",
+        "text": "Short caption placeholder.",
         "audio": "/assets/audio/scientist-3/scene-06-dna-pcr.mp3",
-        "x": 1010,
-        "y": 245
+        "x": 1135,
+        "y": 165
       }
     ],
     "cards": [
       {
         "title": "Samples",
-        "text": "Add note.",
+        "text": "",
         "x": 300,
-        "y": 178,
-        "width": 280,
-        "height": 88,
-        "depth": 4
+        "y": 155,
+        "width": 240,
+        "height": 80,
+        "depth": 12
       },
       {
-        "title": "DNA Extraction",
-        "text": "Add note.",
-        "x": 640,
-        "y": 178,
+        "title": "DNA",
+        "text": "",
+        "x": 510,
+        "y": 155,
+        "width": 200,
+        "height": 80,
+        "depth": 12
+      },
+      {
+        "title": "PCR video",
+        "text": "Add YouTube URL",
+        "x": 965,
+        "y": 145,
         "width": 320,
-        "height": 88,
-        "depth": 4
-      },
-      {
-        "title": "PCR",
-        "text": "Add note.",
-        "x": 980,
-        "y": 178,
-        "width": 280,
-        "height": 88,
-        "depth": 4
+        "height": 80,
+        "depth": 12
       }
     ],
     "props": [
@@ -523,11 +529,6 @@
         "depth": 3
       }
     ],
-    "interaction": {
-      "type": "progress",
-      "button": "RUN STEP",
-      "result": "Add your result text."
-    },
     "characters": [
       {
         "asset": "scientist-1",
@@ -565,6 +566,19 @@
         "action": "idle",
         "depth": 6
       }
+    ],
+    "media": [
+      {
+        "type": "youtube",
+        "src": "",
+        "youtube": "",
+        "title": "PCR video",
+        "x": 965,
+        "y": 340,
+        "width": 360,
+        "height": 203,
+        "depth": 12
+      }
     ]
   },
   {
@@ -577,15 +591,15 @@
     "background": "bg-pixel-lab",
     "dialogue": {
       "speaker": "Scientist 3",
-      "text": "Add your PCR-SSP primer match to gel band explanation here."
+      "text": "Add your PCR-SSP line here."
     },
     "infoPopups": [
       {
         "speaker": "scientist-3",
         "title": "PCR-SSP",
-        "text": "Add a 10-15 second caption for PCR-SSP.",
+        "text": "Short caption placeholder.",
         "audio": "/assets/audio/scientist-3/scene-07-pcr-ssp.mp3",
-        "x": 955,
+        "x": 350,
         "y": 235
       },
       {
@@ -593,37 +607,28 @@
         "title": "Other Methods",
         "text": "Add SSOP, Sanger, and NGS notes here.",
         "audio": "/assets/audio/scientist-3/scene-07-other-methods.mp3",
-        "x": 1070,
-        "y": 310
+        "x": 465,
+        "y": 300
       }
     ],
     "cards": [
       {
-        "title": "Primer Match",
-        "text": "Add note.",
-        "x": 310,
-        "y": 180,
-        "width": 285,
-        "height": 88,
-        "depth": 4
-      },
-      {
-        "title": "Amplification",
-        "text": "Add note.",
+        "title": "PCR-SSP",
+        "text": "Add video or image",
         "x": 640,
-        "y": 180,
-        "width": 310,
-        "height": 88,
-        "depth": 4
+        "y": 145,
+        "width": 460,
+        "height": 80,
+        "depth": 12
       },
       {
-        "title": "Gel Band / Allele",
-        "text": "Add note.",
-        "x": 970,
-        "y": 180,
-        "width": 330,
-        "height": 88,
-        "depth": 4
+        "title": "Other methods",
+        "text": "SSOP, Sanger, NGS popup",
+        "x": 640,
+        "y": 205,
+        "width": 520,
+        "height": 80,
+        "depth": 12
       }
     ],
     "props": [
@@ -642,11 +647,6 @@
         "depth": 3
       }
     ],
-    "interaction": {
-      "type": "progress",
-      "button": "RUN PCR-SSP",
-      "result": "Add your result text."
-    },
     "characters": [
       {
         "asset": "scientist-1",
@@ -684,6 +684,19 @@
         "action": "idle",
         "depth": 6
       }
+    ],
+    "media": [
+      {
+        "type": "youtube",
+        "src": "",
+        "youtube": "",
+        "title": "PCR-SSP video",
+        "x": 950,
+        "y": 335,
+        "width": 360,
+        "height": 203,
+        "depth": 12
+      }
     ]
   },
   {
@@ -696,13 +709,13 @@
     "background": "bg-pixel-lab",
     "dialogue": {
       "speaker": "Scientist 4",
-      "text": "Add your final report explanation here."
+      "text": "Add your final report line here."
     },
     "infoPopups": [
       {
         "speaker": "scientist-4",
         "title": "Typing vs Other Tests",
-        "text": "Add a 10-15 second caption for this info popup.",
+        "text": "Short caption placeholder.",
         "audio": "/assets/audio/scientist-4/scene-08-final-report.mp3",
         "x": 1010,
         "y": 245
@@ -713,36 +726,36 @@
         "title": "DNA-Based HLA Typing Complete",
         "text": "",
         "x": 640,
-        "y": 138,
-        "width": 650,
-        "height": 58,
+        "y": 132,
+        "width": 760,
+        "height": 80,
         "depth": 12
       },
       {
         "title": "HLA Compatibility: Favorable",
         "text": "",
         "x": 640,
-        "y": 210,
+        "y": 198,
         "width": 650,
-        "height": 58,
+        "height": 80,
         "depth": 12
       },
       {
         "title": "Antibody Screening and Donor Crossmatch Still Required",
         "text": "",
         "x": 640,
-        "y": 282,
-        "width": 835,
-        "height": 58,
+        "y": 264,
+        "width": 900,
+        "height": 80,
         "depth": 12
       },
       {
         "title": "Report Sent to Transplant Team",
         "text": "",
         "x": 640,
-        "y": 354,
-        "width": 650,
-        "height": 58,
+        "y": 330,
+        "width": 680,
+        "height": 80,
         "depth": 12
       }
     ],

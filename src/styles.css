@@ -2,3 +2,29 @@ html, body { margin: 0; width: 100%; height: 100%; background: #080d21; overflow
 body { font-family: "Courier New", monospace; }
 #app-shell { width: 100%; height: 100%; display: grid; place-items: center; }
 canvas { image-rendering: pixelated; image-rendering: crisp-edges; box-shadow: 0 0 0 4px #685680, 0 20px 80px #0008; }
+
+.hla-media-frame {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border: 4px solid #685680;
+  background: #fff8ff;
+  box-shadow: 0 10px 26px #0008;
+}
+
+.hla-media-frame img,
+.hla-media-frame iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.hla-media-frame img {
+  object-fit: contain;
+  background: #ffffff;
+}
+
+.hla-media-frame iframe {
+  background: #000000;
+}

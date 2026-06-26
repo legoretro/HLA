@@ -54,7 +54,9 @@ export default class LessonScene extends Phaser.Scene {
       chapters.length - 1
     );
     this.dynamicObjects = [];
+    this.dynamicDomObjects = [];
     this.modalObjects = [];
+    this.modalDomObjects = [];
     this.interactionDone = false;
     this.activeAudio = null;
   }
@@ -83,6 +85,8 @@ export default class LessonScene extends Phaser.Scene {
   clearDynamic() {
     this.dynamicObjects.forEach(obj => obj?.destroy?.());
     this.dynamicObjects = [];
+    this.dynamicDomObjects.forEach(obj => obj?.destroy?.());
+    this.dynamicDomObjects = [];
     this.closeModal(false);
   }
 
@@ -113,6 +117,7 @@ export default class LessonScene extends Phaser.Scene {
     this.drawHeader(chapter);
     this.drawCards(chapter.cards || []);
     this.drawProps(chapter.props || []);
+    this.drawMedia(chapter.media || []);
     this.drawCharacters(chapter.characters || [], chapter.presenter);
     this.drawDialogue(chapter);
     this.drawInfoIcons(chapter.infoPopups || []);
@@ -230,27 +235,36 @@ export default class LessonScene extends Phaser.Scene {
       const x = card.x || 640;
       const y = card.y || 240;
       const depth = card.depth ?? 4;
-      const panel = this.addDynamic(this.add.rectangle(x, y, width, height, 0xFFF6FF, 0.92)
-        .setStrokeStyle(4, toColor(palette.purple)).setDepth(depth));
-      panel.setOrigin(0.5);
+      if (card.panel) {
+        const panel = this.addDynamic(this.add.rectangle(x, y, width, height, 0x111735, 0.78)
+          .setStrokeStyle(2, toColor(palette.lavender)).setDepth(depth));
+        panel.setOrigin(0.5);
+      }
 
-      this.addDynamic(this.addSharpText(x, y - height / 2 + 14, card.title || '', {
-        fontFamily: 'Courier New',
-        fontSize: this.fitFont(card.title || '', width - 28, 24, 15),
+      const titleY = card.text ? y - 18 : y;
+      this.addDynamic(this.addSharpText(x, titleY, card.title || '', {
+        fontFamily: 'Arial, Helvetica, sans-serif',
+        fontSize: this.fitFont(card.title || '', width - 18, 30, 18),
         fontStyle: 'bold',
-        color: palette.ink,
+        color: palette.white,
         align: 'center',
-        wordWrap: { width: width - 28 }
-      }).setOrigin(0.5, 0).setDepth(depth + 1));
+        stroke: '#080D21',
+        strokeThickness: 5,
+        shadow: { offsetX: 2, offsetY: 3, color: '#080D21', blur: 4, fill: true },
+        wordWrap: { width: width - 18 }
+      }).setOrigin(0.5).setDepth(depth + 1));
 
       if (card.text) {
-        this.addDynamic(this.addSharpText(x, y - height / 2 + 45, card.text, {
+        this.addDynamic(this.addSharpText(x, y + 21, card.text, {
           fontFamily: 'Arial, Helvetica, sans-serif',
-          fontSize: this.fitFont(card.text, width - 32, 18, 14),
-          color: palette.ink,
+          fontSize: this.fitFont(card.text, width - 20, 19, 14),
+          color: palette.cream,
           align: 'center',
+          stroke: '#080D21',
+          strokeThickness: 4,
+          shadow: { offsetX: 2, offsetY: 2, color: '#080D21', blur: 3, fill: true },
           lineSpacing: 4,
-          wordWrap: { width: width - 32 }
+          wordWrap: { width: width - 20 }
         }).setOrigin(0.5, 0).setDepth(depth + 1));
       }
     });
@@ -275,6 +289,60 @@ export default class LessonScene extends Phaser.Scene {
         wordWrap: { width: 150 }
       }).setOrigin(0.5).setDepth((prop.depth ?? 3) + 1));
     });
+  }
+
+  drawMedia(mediaItems) {
+    mediaItems.forEach(media => {
+      const element = this.createMediaElement(media);
+      if (!element) return;
+      const width = media.width || 420;
+      const height = media.height || 240;
+      element.style.width = `${width}px`;
+      element.style.height = `${height}px`;
+      element.style.pointerEvents = media.type === 'youtube' ? 'auto' : 'none';
+      const dom = this.add.dom(media.x || 640, media.y || 270, element)
+        .setOrigin(0.5)
+        .setDepth(media.depth ?? 12);
+      this.dynamicDomObjects.push(dom);
+    });
+  }
+
+  createMediaElement(media = {}) {
+    const src = this.resolvePublicPath(media.src || media.image || media.youtube || '');
+    const frame = document.createElement('div');
+    frame.className = 'hla-media-frame';
+
+    if (media.type === 'youtube') {
+      const embed = this.resolveYoutubeEmbedUrl(media.youtube || media.src || '');
+      if (!embed) {
+        const placeholder = document.createElement('div');
+        placeholder.style.display = 'grid';
+        placeholder.style.placeItems = 'center';
+        placeholder.style.width = '100%';
+        placeholder.style.height = '100%';
+        placeholder.style.padding = '18px';
+        placeholder.style.textAlign = 'center';
+        placeholder.style.font = 'bold 20px Arial, Helvetica, sans-serif';
+        placeholder.style.color = '#241B32';
+        placeholder.textContent = 'Add YouTube URL in Author Mode';
+        frame.appendChild(placeholder);
+        return frame;
+      }
+      const iframe = document.createElement('iframe');
+      iframe.src = embed;
+      iframe.title = media.title || 'YouTube video';
+      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+      iframe.allowFullscreen = true;
+      frame.appendChild(iframe);
+      return frame;
+    }
+
+    if (!src) return null;
+    const image = document.createElement('img');
+    image.src = src;
+    image.alt = media.title || 'Uploaded HLA image';
+    frame.appendChild(image);
+    return frame;
   }
 
   drawCharacters(characters, presenter) {
@@ -324,27 +392,29 @@ export default class LessonScene extends Phaser.Scene {
   }
 
   drawDialogue(chapter) {
-    this.addDynamic(this.add.image(574, 552, 'dialog-panel').setDisplaySize(885, 132).setDepth(30));
+    const g = this.addDynamic(this.add.graphics().setDepth(30));
+    g.fillStyle(0xFFF6FF, 0.94).fillRoundedRect(92, 492, 820, 114, 14);
+    g.lineStyle(4, 0x685680, 1).strokeRoundedRect(92, 492, 820, 114, 14);
     if (this.textures.exists(chapter.presenter)) {
-      this.addDynamic(this.add.image(170, 552, chapter.presenter).setDisplaySize(102, 142).setDepth(31));
+      this.addDynamic(this.add.image(170, 600, chapter.presenter).setOrigin(0.5, 1).setDisplaySize(78, 108).setDepth(31));
     } else {
       ['scientist-1', 'scientist-2', 'scientist-3', 'scientist-4'].forEach((asset, index) => {
-        this.addDynamic(this.add.image(118 + index * 35, 574, asset).setDisplaySize(42, 58).setDepth(31));
+        this.addDynamic(this.add.image(124 + index * 35, 596, asset).setOrigin(0.5, 1).setDisplaySize(36, 50).setDepth(31));
       });
     }
-    this.addDynamic(this.add.rectangle(325, 501, 210, 34, 0x685680).setDepth(31));
-    this.addDynamic(this.addSharpText(325, 501, (chapter.dialogue?.speaker || 'Presenter').toUpperCase(), {
-      fontFamily: 'Courier New',
-      fontSize: '18px',
+    this.addDynamic(this.add.rectangle(345, 510, 225, 30, 0x685680).setDepth(31));
+    this.addDynamic(this.addSharpText(345, 510, (chapter.dialogue?.speaker || 'Presenter').toUpperCase(), {
+      fontFamily: 'Arial, Helvetica, sans-serif',
+      fontSize: this.fitFont((chapter.dialogue?.speaker || 'Presenter').toUpperCase(), 205, 17, 12),
       fontStyle: 'bold',
       color: palette.white
     }).setOrigin(0.5).setDepth(32));
-    this.addDynamic(this.addSharpText(245, 526, chapter.dialogue?.text || '', {
+    this.addDynamic(this.addSharpText(250, 533, chapter.dialogue?.text || '', {
       fontFamily: 'Arial, Helvetica, sans-serif',
-      fontSize: '21px',
+      fontSize: '18px',
       color: palette.ink,
-      wordWrap: { width: 690 },
-      lineSpacing: 5
+      wordWrap: { width: 610 },
+      lineSpacing: 4
     }).setDepth(32));
   }
 
@@ -513,47 +583,67 @@ export default class LessonScene extends Phaser.Scene {
   openInfoModal(info) {
     this.stopAudio();
     this.closeModal(false);
+    this.setSceneMediaVisible(false);
 
     const shade = this.add.rectangle(0, 0, 1280, 720, 0x000000, 0.58).setOrigin(0).setDepth(100).setInteractive();
-    const panel = this.add.rectangle(640, 360, 820, 395, 0xFFF6FF).setStrokeStyle(6, 0x685680).setDepth(101);
+    const hasMedia = Boolean(info.image || info.src || info.youtube);
+    const panel = this.add.rectangle(640, 360, 1040, 520, 0xFFF6FF).setStrokeStyle(6, 0x685680).setDepth(101);
     const portraitKey = info.speaker || `scientist-${Math.floor(this.currentIndex / 2) + 1}`;
-    const portrait = this.add.image(310, 345, portraitKey).setDisplaySize(130, 178).setDepth(102);
-    const title = this.addSharpText(700, 214, info.title || 'Info', {
+    const portrait = this.add.image(225, 300, portraitKey).setDisplaySize(90, 124).setDepth(102);
+    const title = this.addSharpText(640, 132, info.title || 'Info', {
       fontFamily: 'Courier New',
-      fontSize: this.fitFont(info.title || 'Info', 590, 30, 18),
+      fontSize: this.fitFont(info.title || 'Info', 860, 30, 18),
       fontStyle: 'bold',
       color: palette.ink,
       align: 'center',
-      wordWrap: { width: 590 }
+      wordWrap: { width: 860 }
     }).setOrigin(0.5).setDepth(102);
-    const caption = this.addSharpText(705, 306, info.text || '', {
-      fontFamily: 'Courier New',
-      fontSize: '21px',
+
+    if (hasMedia) {
+      const media = this.createMediaElement({
+        type: info.youtube ? 'youtube' : 'image',
+        src: info.image || info.src,
+        youtube: info.youtube,
+        title: info.title
+      });
+      if (media) {
+        media.style.width = '450px';
+        media.style.height = '254px';
+        media.style.pointerEvents = info.youtube ? 'auto' : 'none';
+        const mediaDom = this.add.dom(800, 315, media).setOrigin(0.5).setDepth(103);
+        this.modalDomObjects.push(mediaDom);
+      }
+    }
+
+    const caption = this.addSharpText(hasMedia ? 330 : 640, 286, info.text || 'Add a short caption here.', {
+      fontFamily: 'Arial, Helvetica, sans-serif',
+      fontSize: hasMedia ? '19px' : '23px',
       color: palette.ink,
       align: 'left',
       lineSpacing: 6,
-      wordWrap: { width: 575 }
-    }).setOrigin(0.5).setDepth(102);
-    const status = this.addSharpText(705, 430, this.audioStatus(info.audio), {
+      wordWrap: { width: hasMedia ? 220 : 660 }
+    }).setOrigin(hasMedia ? 0 : 0.5, 0.5).setDepth(102);
+
+    const status = this.addSharpText(640, 460, this.audioStatus(info.audio), {
       fontFamily: 'Courier New',
       fontSize: '13px',
       color: palette.purple,
       align: 'center',
-      wordWrap: { width: 590 }
+      wordWrap: { width: 810 }
     }).setOrigin(0.5).setDepth(102);
 
     this.modalObjects = [shade, panel, portrait, title, caption, status];
     const audio = this.makeAudio(info.audio, status);
     const buttons = [
-      ['PLAY', 480, () => this.playAudio(audio, status)],
-      ['PAUSE', 585, () => this.pauseAudio(audio, status)],
-      ['REPLAY', 700, () => this.replayAudio(audio, status)],
-      ['MUTE', 820, (_button, label) => this.toggleMute(audio, status, label)]
+      ['PLAY', 410, () => this.playAudio(audio, status)],
+      ['PAUSE', 520, () => this.pauseAudio(audio, status)],
+      ['REPLAY', 640, () => this.replayAudio(audio, status)],
+      ['MUTE', 760, (_button, label) => this.toggleMute(audio, status, label)]
     ];
 
-    buttons.forEach(([label, x, handler]) => this.addModalButton(x, 475, label, handler));
+    buttons.forEach(([label, x, handler]) => this.addModalButton(x, 505, label, handler));
 
-    const close = this.addSharpText(640, 535, '[ CLOSE ]', {
+    const close = this.addSharpText(640, 590, '[ CLOSE ]', {
       fontFamily: 'Courier New',
       fontSize: '21px',
       fontStyle: 'bold',
@@ -597,12 +687,24 @@ export default class LessonScene extends Phaser.Scene {
   }
 
   resolveAudioPath(path) {
+    return this.resolvePublicPath(path);
+  }
+
+  resolvePublicPath(path) {
     if (!path) return '';
     if (/^https?:\/\//.test(path)) return path;
     const base = import.meta.env.BASE_URL || './';
     if (path.startsWith('/assets/')) return `${base}${path.slice(1)}`;
     if (path.startsWith('assets/')) return `${base}${path}`;
     return path;
+  }
+
+  resolveYoutubeEmbedUrl(url) {
+    if (!url) return '';
+    if (/youtube\.com\/embed\//.test(url)) return url;
+    const idMatch = String(url).match(/(?:youtu\.be\/|youtube\.com\/watch\?v=|youtube\.com\/shorts\/)([A-Za-z0-9_-]{6,})/);
+    if (!idMatch) return '';
+    return `https://www.youtube-nocookie.com/embed/${idMatch[1]}?rel=0&modestbranding=1`;
   }
 
   audioStatus(path) {
@@ -669,6 +771,7 @@ export default class LessonScene extends Phaser.Scene {
 
     this.stopAudio();
     this.closeModal(false);
+    this.setSceneMediaVisible(false);
     const shade = this.add.rectangle(0, 0, 1280, 720, 0x000000, 0.55).setOrigin(0).setDepth(100).setInteractive();
     const isNotes = label === 'NOTES';
     const panel = this.add.rectangle(640, 360, isNotes ? 980 : 760, isNotes ? 520 : 335, 0xFFF6FF).setStrokeStyle(6, 0x685680).setDepth(101);
@@ -700,8 +803,21 @@ export default class LessonScene extends Phaser.Scene {
 
   closeModal(shouldStopAudio = true) {
     if (shouldStopAudio) this.stopAudio();
+    this.modalDomObjects.forEach(obj => obj?.destroy?.());
+    this.modalDomObjects = [];
     this.modalObjects.forEach(obj => obj?.destroy?.());
     this.modalObjects = [];
+    this.setSceneMediaVisible(true);
+  }
+
+  setSceneMediaVisible(visible) {
+    this.dynamicDomObjects.forEach(obj => {
+      obj?.setVisible?.(visible);
+      if (obj?.node?.style) {
+        obj.node.style.display = visible ? '' : 'none';
+        obj.node.style.visibility = visible ? 'visible' : 'hidden';
+      }
+    });
   }
 
   fitFont(text, width, maxSize, minSize) {

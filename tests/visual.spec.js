@@ -21,8 +21,21 @@ test('HLA Quest renders a nonblank main scene', async ({ page }) => {
 test('info popup shows voiceover controls without requiring audio', async ({ page }) => {
   await page.goto('./');
   await page.locator('canvas').waitFor();
+  await page.evaluate(() => {
+    window.hlaQuestGame.scene.getScene('LessonScene').renderChapter(1);
+  });
+  await page.waitForTimeout(400);
   await page.mouse.click(1010, 245);
   await page.waitForTimeout(300);
+  const modalState = await page.evaluate(() => {
+    const scene = window.hlaQuestGame.scene.getScene('LessonScene');
+    return {
+      canvasObjects: scene.modalObjects.length,
+      mediaObjects: scene.modalDomObjects.length
+    };
+  });
+  expect(modalState.canvasObjects).toBeGreaterThan(5);
+  expect(modalState.mediaObjects).toBeGreaterThan(0);
   const screenshot = await page.screenshot();
   expect(screenshot.length).toBeGreaterThan(10000);
 });
@@ -58,5 +71,10 @@ test('notes popup lists audio files without clipping', async ({ page }) => {
 
 test('scene 2 uploaded voiceover file is available', async ({ page }) => {
   const response = await page.goto('./assets/audio/scientist-1/scene-02-general-hla.mp3');
+  expect(response.status()).toBe(200);
+});
+
+test('uploaded chromosome image is available', async ({ page }) => {
+  const response = await page.goto('./assets/uploads/chromosome-6-reference.png');
   expect(response.status()).toBe(200);
 });

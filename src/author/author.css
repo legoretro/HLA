@@ -171,10 +171,11 @@ button.danger {
   align-content: start;
   gap: 7px;
   padding: 12px;
-  background: #FFF6FFEE;
-  border: 4px solid #685680;
-  color: #241B32;
+  background: transparent;
+  border: 0;
+  color: #FFF8FF;
   text-align: center;
+  text-shadow: 2px 3px 5px #080D21;
   cursor: grab;
 }
 
@@ -187,6 +188,21 @@ button.danger {
   white-space: pre-line;
   font-size: 15px;
   line-height: 1.25;
+  color: #FFF0E8;
+}
+
+.preview-media {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  object-fit: contain;
+  background: #FFF6FF;
+  border: 4px solid #685680;
+  color: #241B32;
+  font-size: 22px;
+  font-weight: bold;
+  box-shadow: 0 10px 24px #0008;
+  cursor: grab;
 }
 
 .preview-prop,

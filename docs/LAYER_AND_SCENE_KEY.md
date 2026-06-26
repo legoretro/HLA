@@ -6,12 +6,13 @@ Use this depth order consistently:
 2. Rear furniture and signs — depth 1–2
 3. Lab equipment and science diagrams — depth 3–4
 4. Scientists — depth 5
-5. Glowing info icons — depth 15
-6. Header — depth 20+
-7. Dialogue area — depth 30+
-8. Bottom quest path — depth 40+
-9. NEXT button — depth 50+
-10. Modal overlays — depth 100+
+5. Uploaded media and short labels — depth 12
+6. Glowing info icons — depth 15
+7. Header — depth 20+
+8. Dialogue area — depth 30+
+9. Bottom quest path — depth 40+
+10. NEXT button — depth 50+
+11. Modal overlays — depth 100+
 
 Canvas regions:
 
