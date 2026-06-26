@@ -105,6 +105,16 @@ export default class LessonScene extends Phaser.Scene {
     return object;
   }
 
+  addFittedImage(x, y, key, height, options = {}) {
+    const image = this.add.image(x, y, key)
+      .setOrigin(...(options.origin || [0.5, 0.5]))
+      .setDepth(options.depth ?? 0);
+    const source = this.textures.get(key)?.getSourceImage?.();
+    const ratio = source?.width && source?.height ? source.width / source.height : 0.43;
+    image.setDisplaySize(Math.round(height * ratio), height);
+    return image;
+  }
+
   renderChapter(index) {
     this.stopAudio();
     this.clearDynamic();
@@ -194,7 +204,7 @@ export default class LessonScene extends Phaser.Scene {
     this.addDynamic(this.add.rectangle(760, 42, 245, 50, 0x222647)
       .setStrokeStyle(2, toColor(palette.lavender)).setDepth(21));
     if (this.textures.exists(chapter.presenter)) {
-      this.addDynamic(this.add.image(650, 46, chapter.presenter).setDisplaySize(42, 58).setDepth(22));
+      this.addDynamic(this.addFittedImage(650, 46, chapter.presenter, 58, { depth: 22 }));
     } else {
       this.addDynamic(this.addSharpText(650, 46, '4', {
         fontFamily: 'Courier New',
@@ -396,10 +406,10 @@ export default class LessonScene extends Phaser.Scene {
     g.fillStyle(0xFFF6FF, 0.94).fillRoundedRect(92, 492, 820, 114, 14);
     g.lineStyle(4, 0x685680, 1).strokeRoundedRect(92, 492, 820, 114, 14);
     if (this.textures.exists(chapter.presenter)) {
-      this.addDynamic(this.add.image(170, 600, chapter.presenter).setOrigin(0.5, 1).setDisplaySize(78, 108).setDepth(31));
+      this.addDynamic(this.addFittedImage(170, 600, chapter.presenter, 108, { origin: [0.5, 1], depth: 31 }));
     } else {
       ['scientist-1', 'scientist-2', 'scientist-3', 'scientist-4'].forEach((asset, index) => {
-        this.addDynamic(this.add.image(124 + index * 35, 596, asset).setOrigin(0.5, 1).setDisplaySize(36, 50).setDepth(31));
+        this.addDynamic(this.addFittedImage(124 + index * 35, 596, asset, 50, { origin: [0.5, 1], depth: 31 }));
       });
     }
     this.addDynamic(this.add.rectangle(345, 510, 225, 30, 0x685680).setDepth(31));
@@ -532,6 +542,7 @@ export default class LessonScene extends Phaser.Scene {
     button.on('pointerover', () => button.setScale(1.03));
     button.on('pointerout', () => button.setScale(1));
     button.on('pointerdown', () => {
+      this.playNextClick();
       if (this.currentIndex === chapters.length - 1) {
         this.maxUnlocked = 0;
         localStorage.setItem('hlaQuestMaxUnlocked', '0');
@@ -542,6 +553,16 @@ export default class LessonScene extends Phaser.Scene {
       localStorage.setItem('hlaQuestMaxUnlocked', String(this.maxUnlocked));
       this.renderChapter(this.currentIndex + 1);
     });
+  }
+
+  playNextClick() {
+    try {
+      if (this.cache?.audio?.exists('next-click')) {
+        this.sound?.play('next-click', { volume: 0.38 });
+      }
+    } catch {
+      // Navigation should never depend on a UI sound.
+    }
   }
 
   drawInteraction(interaction) {
@@ -589,7 +610,7 @@ export default class LessonScene extends Phaser.Scene {
     const hasMedia = Boolean(info.image || info.src || info.youtube);
     const panel = this.add.rectangle(640, 360, 1040, 520, 0xFFF6FF).setStrokeStyle(6, 0x685680).setDepth(101);
     const portraitKey = info.speaker || `scientist-${Math.floor(this.currentIndex / 2) + 1}`;
-    const portrait = this.add.image(225, 300, portraitKey).setDisplaySize(90, 124).setDepth(102);
+    const portrait = this.addFittedImage(225, 300, portraitKey, 150, { depth: 102 });
     const title = this.addSharpText(640, 132, info.title || 'Info', {
       fontFamily: 'Courier New',
       fontSize: this.fitFont(info.title || 'Info', 860, 30, 18),

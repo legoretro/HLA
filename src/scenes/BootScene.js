@@ -45,10 +45,15 @@ const imageAssets = {
   'guide-portrait': 'assets/characters/prof-histo.png'
 };
 
+const audioAssets = {
+  'next-click': 'assets/audio/ui/next-click.wav'
+};
+
 export default class BootScene extends Phaser.Scene {
   constructor() { super('BootScene'); }
   preload() {
     Object.entries(imageAssets).forEach(([key, path]) => this.load.image(key, path));
+    Object.entries(audioAssets).forEach(([key, path]) => this.load.audio(key, path));
     for (let i = 1; i <= 4; i += 1) {
       this.load.spritesheet(`scientist-${i}-sheet`, `assets/characters/scientist-${i}-sheet.png`, {
         frameWidth: 128,
