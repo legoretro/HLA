@@ -13,6 +13,7 @@ All replaceable images are under:
 - `ui/` — blank dialogue frame and other reusable interface pieces
 - `logo/` — HLA Quest logo
 - `uploads/` — your class images, screenshots, diagrams, and other direct content
+- `audio/ui/` — game interface sounds and the soft background music loop
 
 ## Replacement rule
 
@@ -57,6 +58,18 @@ YouTube video slot example:
 ```
 
 No Supabase is required. Uploaded files are served from GitHub Pages after the site is rebuilt and the `gh-pages` branch is updated.
+
+## UI audio
+
+The BACK and NEXT buttons use:
+
+`public/assets/audio/ui/next-click.wav`
+
+The soft walking-adventure background loop uses:
+
+`public/assets/audio/ui/adventure-walk-loop.wav`
+
+The game lowers this loop while popup voiceover audio is playing, then brings it back softly when the voiceover ends, pauses, or closes.
 
 ## Sprite-sheet layout
 

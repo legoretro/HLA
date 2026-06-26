@@ -46,7 +46,8 @@ const imageAssets = {
 };
 
 const audioAssets = {
-  'next-click': 'assets/audio/ui/next-click.wav'
+  'next-click': 'assets/audio/ui/next-click.wav',
+  'adventure-walk-loop': 'assets/audio/ui/adventure-walk-loop.wav'
 };
 
 export default class BootScene extends Phaser.Scene {

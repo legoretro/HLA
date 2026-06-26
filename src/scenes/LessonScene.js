@@ -43,6 +43,10 @@ const AUDIO_NOTES = [
   'Uploading to main needs a gh-pages rebuild before it is live.'
 ].join('\n');
 
+const MUSIC_INTRO_VOLUME = 0.24;
+const MUSIC_IDLE_VOLUME = 0.09;
+const MUSIC_DUCKED_VOLUME = 0.018;
+
 const toColor = value => Phaser.Display.Color.HexStringToColor(value).color;
 
 export default class LessonScene extends Phaser.Scene {
@@ -59,10 +63,12 @@ export default class LessonScene extends Phaser.Scene {
     this.modalDomObjects = [];
     this.interactionDone = false;
     this.activeAudio = null;
+    this.backgroundMusic = null;
   }
 
   create() {
     this.createAnimations();
+    this.setupBackgroundMusic();
     this.renderChapter(this.currentIndex);
   }
 
@@ -525,7 +531,11 @@ export default class LessonScene extends Phaser.Scene {
       button.setInteractive({ useHandCursor: true });
       button.on('pointerover', () => button.setScale(1.03));
       button.on('pointerout', () => button.setScale(1));
-      button.on('pointerdown', () => this.renderChapter(this.currentIndex - 1));
+      button.on('pointerdown', () => {
+        this.playUiClick();
+        this.ensureBackgroundMusic();
+        this.renderChapter(this.currentIndex - 1);
+      });
     }
   }
 
@@ -542,7 +552,8 @@ export default class LessonScene extends Phaser.Scene {
     button.on('pointerover', () => button.setScale(1.03));
     button.on('pointerout', () => button.setScale(1));
     button.on('pointerdown', () => {
-      this.playNextClick();
+      this.playUiClick();
+      this.ensureBackgroundMusic();
       if (this.currentIndex === chapters.length - 1) {
         this.maxUnlocked = 0;
         localStorage.setItem('hlaQuestMaxUnlocked', '0');
@@ -555,7 +566,7 @@ export default class LessonScene extends Phaser.Scene {
     });
   }
 
-  playNextClick() {
+  playUiClick() {
     try {
       if (this.cache?.audio?.exists('next-click')) {
         this.sound?.play('next-click', { volume: 0.38 });
@@ -563,6 +574,53 @@ export default class LessonScene extends Phaser.Scene {
     } catch {
       // Navigation should never depend on a UI sound.
     }
+  }
+
+  setupBackgroundMusic() {
+    if (!this.cache?.audio?.exists('adventure-walk-loop')) return;
+
+    const start = () => this.ensureBackgroundMusic();
+    this.input.once('pointerdown', start);
+    if (this.sound?.locked) {
+      this.sound.once('unlocked', start);
+    } else {
+      start();
+    }
+  }
+
+  ensureBackgroundMusic() {
+    if (!this.cache?.audio?.exists('adventure-walk-loop')) return;
+    if (!this.backgroundMusic) {
+      this.backgroundMusic = this.sound.add('adventure-walk-loop', {
+        loop: true,
+        volume: 0
+      });
+    }
+    if (!this.backgroundMusic.isPlaying) {
+      this.backgroundMusic.play();
+      this.backgroundMusic.setVolume(MUSIC_INTRO_VOLUME);
+      this.fadeBackgroundMusic(MUSIC_IDLE_VOLUME, 5200);
+    }
+  }
+
+  fadeBackgroundMusic(volume, duration = 700) {
+    if (!this.backgroundMusic) return;
+    this.tweens.killTweensOf(this.backgroundMusic);
+    this.tweens.add({
+      targets: this.backgroundMusic,
+      volume,
+      duration,
+      ease: 'Sine.Out'
+    });
+  }
+
+  duckBackgroundMusic() {
+    this.ensureBackgroundMusic();
+    this.fadeBackgroundMusic(MUSIC_DUCKED_VOLUME, 450);
+  }
+
+  restoreBackgroundMusic() {
+    this.fadeBackgroundMusic(MUSIC_IDLE_VOLUME, 900);
   }
 
   drawInteraction(interaction) {
@@ -697,8 +755,14 @@ export default class LessonScene extends Phaser.Scene {
     try {
       const audio = new Audio(src);
       audio.preload = 'metadata';
-      audio.addEventListener('ended', () => status.setText('Audio ended. Captions remain visible.'));
-      audio.addEventListener('error', () => status.setText('Audio file not found yet. Captions remain visible.'));
+      audio.addEventListener('ended', () => {
+        status.setText('Audio ended. Captions remain visible.');
+        this.restoreBackgroundMusic();
+      });
+      audio.addEventListener('error', () => {
+        status.setText('Audio file not found yet. Captions remain visible.');
+        this.restoreBackgroundMusic();
+      });
       this.activeAudio = audio;
       return audio;
     } catch {
@@ -738,8 +802,14 @@ export default class LessonScene extends Phaser.Scene {
       return;
     }
     audio.play()
-      .then(() => status.setText('Playing audio. Captions remain visible.'))
-      .catch(() => status.setText('Audio file not available yet. Captions remain visible.'));
+      .then(() => {
+        status.setText('Playing audio. Captions remain visible.');
+        this.duckBackgroundMusic();
+      })
+      .catch(() => {
+        status.setText('Audio file not available yet. Captions remain visible.');
+        this.restoreBackgroundMusic();
+      });
   }
 
   pauseAudio(audio, status) {
@@ -749,6 +819,7 @@ export default class LessonScene extends Phaser.Scene {
     }
     audio.pause();
     status.setText('Paused. Captions remain visible.');
+    this.restoreBackgroundMusic();
   }
 
   replayAudio(audio, status) {
@@ -775,6 +846,7 @@ export default class LessonScene extends Phaser.Scene {
     this.activeAudio.pause();
     this.activeAudio.currentTime = 0;
     this.activeAudio = null;
+    this.restoreBackgroundMusic();
   }
 
   openUtilityModal(label) {

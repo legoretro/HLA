@@ -88,3 +88,33 @@ test('next button click sound is available', async ({ page }) => {
   const response = await page.goto('./assets/audio/ui/next-click.wav');
   expect(response.status()).toBe(200);
 });
+
+test('background adventure music is available', async ({ page }) => {
+  const response = await page.goto('./assets/audio/ui/adventure-walk-loop.wav');
+  expect(response.status()).toBe(200);
+});
+
+test('back button uses the UI click path', async ({ page }) => {
+  await page.goto('./');
+  await page.locator('canvas').waitFor();
+  await page.evaluate(() => {
+    const scene = window.hlaQuestGame.scene.getScene('LessonScene');
+    scene.renderChapter(1);
+    window.__hlaClickCount = 0;
+    scene.playUiClick = () => {
+      window.__hlaClickCount += 1;
+    };
+  });
+  await page.waitForTimeout(300);
+  await page.mouse.click(1024, 557);
+  await page.waitForTimeout(300);
+
+  const state = await page.evaluate(() => {
+    const scene = window.hlaQuestGame.scene.getScene('LessonScene');
+    return {
+      clicks: window.__hlaClickCount,
+      currentIndex: scene.currentIndex
+    };
+  });
+  expect(state).toEqual({ clicks: 1, currentIndex: 0 });
+});
