@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HLA Quest Author Mode</title>
+  <script type="module" crossorigin src="./assets/author-DznPTjs9.js"></script>
+  <link rel="modulepreload" crossorigin href="./assets/chapters-Un8rRyPt.js">
+  <link rel="stylesheet" crossorigin href="./assets/author-V1g0cbmj.css">
+</head>
+<body class="author-body">
+  <header class="author-header">
+    <h1>HLA Quest Author Mode</h1>
+    <div class="author-actions">
+      <button id="moveUp">Move Up</button>
+      <button id="moveDown">Move Down</button>
+      <button id="addChapter">Add</button>
+      <button id="duplicateChapter">Duplicate</button>
+      <button id="deleteChapter">Delete</button>
+      <button id="exportJson" class="primary">Export chapters.json</button>
+    </div>
+  </header>
+
+  <div class="author-layout">
+    <aside class="editor-panel">
+      <section class="editor-section">
+        <h2>Scene</h2>
+        <label>Chapter<select id="chapterSelect"></select></label>
+        <label>Title<input id="chapterTitle" /></label>
+        <label>Short label<input id="shortLabel" /></label>
+        <label>Presenter<select id="presenter"></select></label>
+        <label>Speaker<input id="speaker" /></label>
+        <label>Dialogue<textarea id="dialogue" rows="5"></textarea></label>
+        <label>Background<select id="background"></select></label>
+        <label>Bottom icon<select id="timelineIcon"></select></label>
+      </section>
+
+      <section class="editor-section">
+        <h2>Interaction</h2>
+        <label>Type<select id="interactionType"></select></label>
+        <label>Button<input id="interactionButton" /></label>
+        <label>Result<textarea id="interactionResult" rows="3"></textarea></label>
+      </section>
+
+      <section class="editor-section">
+        <div class="section-title-row">
+          <h2>Info Popups</h2>
+          <button id="addPopup">Add Popup</button>
+        </div>
+        <div id="popupControls"></div>
+      </section>
+
+      <section class="editor-section">
+        <div class="section-title-row">
+          <h2>Cards</h2>
+          <button id="addCard">Add Card</button>
+        </div>
+        <div id="cardControls"></div>
+      </section>
+
+      <section class="editor-section">
+        <div class="section-title-row">
+          <h2>Scene Media</h2>
+          <button id="addMedia">Add Media</button>
+        </div>
+        <div id="mediaControls"></div>
+      </section>
+
+      <section class="editor-section">
+        <div class="section-title-row">
+          <h2>Props</h2>
+          <button id="addProp">Add Prop</button>
+        </div>
+        <div id="propControls"></div>
+      </section>
+
+      <section class="editor-section">
+        <h2>Scientists</h2>
+        <div id="characterControls"></div>
+      </section>
+    </aside>
+
+    <section class="preview-column">
+      <div id="previewScale">
+        <div id="previewCanvas" aria-label="chapter preview">
+          <img id="previewBackground" alt="" />
+          <div id="previewCards"></div>
+          <div id="previewMedia"></div>
+          <div id="previewProps"></div>
+          <div id="previewInfoIcons"></div>
+          <div id="previewCharacters"></div>
+          <div id="previewDialogue"></div>
+          <div id="previewInteraction"></div>
+          <div id="previewPath"></div>
+        </div>
+      </div>
+    </section>
+  </div>
+</body>
+</html>
